@@ -1,6 +1,9 @@
 package com.theladders.calisthenics.service;
 
-import com.theladders.calisthenics.domain.*;
+import com.theladders.calisthenics.domain.Job;
+import com.theladders.calisthenics.domain.JobApplication;
+import com.theladders.calisthenics.domain.JobApplications;
+import com.theladders.calisthenics.domain.JobSeeker;
 
 /**
  * User: Leo Amigood <lamigud@theladders.com>
@@ -9,8 +12,8 @@ import com.theladders.calisthenics.domain.*;
  */
 public interface JobSeekerService {
 
-    public void save(Job job, JobSeeker seeker);
-    public JobApplication apply(ATS job, JobSeeker seeker);
-    public JobApplication apply(JReq job, JobSeeker seeker, Resume resume);
+    public JobApplications list(JobSeeker seeker);
+    public void save(JobSeeker seeker, Job job);
+    public JobApplication apply(JobSeeker seeker, Job job) throws Exception;
 
 }

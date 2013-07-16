@@ -10,7 +10,7 @@ import java.util.Set;
  */
 public class Resumes {
 
-    private Set<Resume> resumes = new LinkedHashSet<Resume>();
+    private Set<Resume> resumes = new LinkedHashSet<>();
 
     public boolean add(Resume resume) {
         return resumes.add(resume);

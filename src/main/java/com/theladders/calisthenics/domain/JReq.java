@@ -6,4 +6,5 @@ package com.theladders.calisthenics.domain;
  * Time: 5:56 PM
  */
 public class JReq extends Job {
+
 }
