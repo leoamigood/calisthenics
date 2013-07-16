@@ -1,9 +1,9 @@
 package com.theladders.calisthenics.service;
 
-import com.theladders.calisthenics.JobFilters;
 import com.theladders.calisthenics.domain.JobSeekers;
 import com.theladders.calisthenics.domain.Jobs;
 import com.theladders.calisthenics.domain.Recruiter;
+import com.theladders.calisthenics.service.filter.JobFilters;
 
 /**
  * User: Leo Amigood <lamigud@theladders.com>

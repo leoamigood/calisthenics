@@ -1,4 +1,4 @@
-package com.theladders.calisthenics;
+package com.theladders.calisthenics.service.filter;
 
 import java.util.ArrayList;
 import java.util.List;
