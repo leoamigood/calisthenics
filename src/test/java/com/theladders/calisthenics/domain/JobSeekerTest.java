@@ -7,11 +7,9 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 /**
- * Created with IntelliJ IDEA.
- * User: lamigud
+ * User: Leo Amigood <lamigud@theladders.com>
  * Date: 7/16/13
  * Time: 1:16 PM
- * To change this template use File | Settings | File Templates.
  */
 public class JobSeekerTest {
 

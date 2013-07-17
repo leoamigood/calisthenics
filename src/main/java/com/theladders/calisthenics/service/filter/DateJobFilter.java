@@ -19,6 +19,7 @@ public class DateJobFilter implements JobFilter {
 
     @Override
     public boolean match(JobApplication application) {
-        return application.isAppliedOn(date);
+        return application != null &&
+                application.isAppliedOn(date);
     }
 }

@@ -1,10 +1,9 @@
-package com.theladders.calisthenics;
+package com.theladders.calisthenics.service.filter;
 
 import com.theladders.calisthenics.domain.ATS;
 import com.theladders.calisthenics.domain.JobApplication;
 import com.theladders.calisthenics.domain.JobApplicationInfo;
 import com.theladders.calisthenics.domain.JobSeeker;
-import com.theladders.calisthenics.service.filter.SeekerJobFilter;
 import org.junit.Test;
 
 import java.util.Date;
@@ -29,6 +28,7 @@ public class SeekerJobFilterTest {
 
         JobApplication application = new JobApplication(seeker, info);
         assertTrue(filter.match(application));
+        assertTrue(filter.match(new JobApplication(seeker, null)));
 
         assertFalse(filter.match(new JobApplication(new JobSeeker(), info)));
         assertFalse(filter.match(null));
