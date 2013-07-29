@@ -8,7 +8,7 @@ import com.theladders.calisthenics.domain.JobSeeker;
  * Date: 7/16/13
  * Time: 2:44 PM
  */
-public class SeekerJobFilter implements JobFilter
+public class SeekerJobFilter implements JobMatcher
 {
     private JobSeeker seeker;
 
@@ -20,11 +20,7 @@ public class SeekerJobFilter implements JobFilter
     @Override
     public boolean match(JobApplication application)
     {
-        return isFiledByJobSeeker(application);
+        return application.getApplicant().equals(seeker);
     }
 
-    private boolean isFiledByJobSeeker(JobApplication application)
-    {
-        return application != null && application.getApplicant().equals(seeker);
-    }
 }

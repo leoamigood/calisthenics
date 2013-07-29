@@ -18,6 +18,10 @@ public class JobApplicationDetails
         this.appliedOn = appliedOn;
     }
 
+    public Job getJob() {
+        return job;
+    }
+
     public Date getDate()
     {
         return appliedOn;

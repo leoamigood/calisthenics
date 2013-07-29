@@ -2,7 +2,9 @@ package com.theladders.calisthenics.service;
 
 import com.theladders.calisthenics.domain.*;
 import com.theladders.calisthenics.job.JobRepository;
+import com.theladders.calisthenics.service.filter.JobFilters;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.mockito.Mockito;
 
@@ -15,9 +17,9 @@ import static org.mockito.Mockito.verify;
  * Date: 7/29/13
  * Time: 10:55 AM
  */
-public class RecruitingServiceTest
+public class JobServiceTest
 {
-    RecruitingService service;
+    JobService service;
     JobRepository repository = Mockito.mock(JobRepository.class);
 
     Recruiter recruiter = new Recruiter();
@@ -25,7 +27,7 @@ public class RecruitingServiceTest
     @Before
     public void setUp()
     {
-        service = new RecruitingService(repository);
+        service = new JobService(repository);
     }
 
     @Test
@@ -33,7 +35,7 @@ public class RecruitingServiceTest
     {
         Job job = new ATS();
         Jobs jobs = new Jobs(job);
-        Jobs posted = service.post(recruiter, jobs);
+        Jobs posted = service.postJobs(recruiter, jobs);
 
         verify(repository, times(1)).addJob(recruiter, job);
 
@@ -46,7 +48,7 @@ public class RecruitingServiceTest
         Job ats = new ATS();
         Job jReq = new JReq();
         Jobs jobs = new Jobs(ats, jReq);
-        Jobs posted = service.post(recruiter, jobs);
+        Jobs posted = service.postJobs(recruiter, jobs);
 
         verify(repository, times(1)).addJob(recruiter, ats);
         verify(repository, times(1)).addJob(recruiter, jReq);
@@ -58,7 +60,14 @@ public class RecruitingServiceTest
     @Test
     public void testListJobs()
     {
-        service.list(recruiter);
+        service.getJobs(recruiter);
         verify(repository).findByRecruiter(recruiter);
+    }
+
+    @Test
+    @Ignore
+    public void testListJobApplications()
+    {
+
     }
 }

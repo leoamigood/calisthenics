@@ -32,7 +32,6 @@ public class SeekerJobFilterTest
         assertTrue(filter.match(new JobApplication(seeker, null)));
 
         assertFalse(filter.match(new JobApplication(new JobSeeker(), info)));
-        assertFalse(filter.match(null));
     }
 
 }

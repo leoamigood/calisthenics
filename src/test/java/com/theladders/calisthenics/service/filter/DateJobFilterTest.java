@@ -37,7 +37,6 @@ public class DateJobFilterTest
 
         JobApplicationDetails another = new JobApplicationDetails(new ATS(), getYesterdayDate());
         assertFalse(filter.match(new JobApplication(seeker, another)));
-        assertFalse(filter.match(null));
     }
 
     private Date getYesterdayDate()

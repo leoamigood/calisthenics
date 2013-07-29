@@ -23,6 +23,11 @@ public class JobApplication
         return seeker;
     }
 
+    public Job getJob()
+    {
+        return info.getJob();
+    }
+
     public Date getDate()
     {
         return info.getDate();

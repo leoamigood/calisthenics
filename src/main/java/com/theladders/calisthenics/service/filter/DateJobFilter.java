@@ -9,7 +9,7 @@ import java.util.Date;
  * Date: 7/16/13
  * Time: 5:45 PM
  */
-public class DateJobFilter implements JobFilter
+public class DateJobFilter implements JobMatcher
 {
     private Date date;
 
@@ -21,11 +21,7 @@ public class DateJobFilter implements JobFilter
     @Override
     public boolean match(JobApplication application)
     {
-        return isFiledOnDate(application);
+        return application.getDate().equals(date);
     }
 
-    private boolean isFiledOnDate(JobApplication application)
-    {
-        return application != null && application.getDate().equals(date);
-    }
 }
