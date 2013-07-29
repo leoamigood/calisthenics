@@ -2,7 +2,7 @@ package com.theladders.calisthenics.service.filter;
 
 import com.theladders.calisthenics.domain.ATS;
 import com.theladders.calisthenics.domain.JobApplication;
-import com.theladders.calisthenics.domain.JobApplicationInfo;
+import com.theladders.calisthenics.domain.JobApplicationDetails;
 import com.theladders.calisthenics.domain.JobSeeker;
 import org.junit.Test;
 
@@ -17,16 +17,17 @@ import static org.junit.Assert.assertTrue;
  * Date: 7/17/13
  * Time: 9:57 AM
  */
-public class DateJobFilterTest {
-
+public class DateJobFilterTest
+{
     DateJobFilter filter;
 
     Date now = new Date();
 
     @Test
-    public void testMatch() throws Exception {
+    public void testMatch() throws Exception
+    {
         JobSeeker seeker = new JobSeeker();
-        JobApplicationInfo info = new JobApplicationInfo(new ATS(), now);
+        JobApplicationDetails info = new JobApplicationDetails(new ATS(), now);
         filter = new DateJobFilter(now);
 
         JobApplication application = new JobApplication(seeker, info);
@@ -34,12 +35,13 @@ public class DateJobFilterTest {
         assertTrue(filter.match(new JobApplication(new JobSeeker(), info)));
         assertTrue(filter.match(new JobApplication(null, info)));
 
-        JobApplicationInfo another = new JobApplicationInfo(new ATS(), getYesterdayDate());
+        JobApplicationDetails another = new JobApplicationDetails(new ATS(), getYesterdayDate());
         assertFalse(filter.match(new JobApplication(seeker, another)));
         assertFalse(filter.match(null));
     }
 
-    private Date getYesterdayDate() {
+    private Date getYesterdayDate()
+    {
         Calendar calendar = Calendar.getInstance();
         calendar.add(Calendar.DATE, -1);
         return calendar.getTime();

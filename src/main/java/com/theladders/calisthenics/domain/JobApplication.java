@@ -7,21 +7,24 @@ import java.util.Date;
  * Date: 7/15/13
  * Time: 5:25 PM
  */
-public class JobApplication {
-
+public class JobApplication
+{
     private JobSeeker seeker;
-    private JobApplicationInfo info;
+    private JobApplicationDetails info;
 
-    public JobApplication(JobSeeker seeker, JobApplicationInfo info) {
+    public JobApplication(JobSeeker seeker, JobApplicationDetails info)
+    {
         this.seeker = seeker;
         this.info = info;
     }
 
-    public boolean isFiledBy(JobSeeker applicant) {
-        return this.seeker.equals(applicant);
+    public JobSeeker getApplicant()
+    {
+        return seeker;
     }
 
-    public boolean isAppliedOn(Date date) {
-        return info.isDated(date);
+    public Date getDate()
+    {
+        return info.getDate();
     }
 }

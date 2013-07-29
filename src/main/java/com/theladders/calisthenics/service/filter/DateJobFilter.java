@@ -9,17 +9,23 @@ import java.util.Date;
  * Date: 7/16/13
  * Time: 5:45 PM
  */
-public class DateJobFilter implements JobFilter {
-
+public class DateJobFilter implements JobFilter
+{
     private Date date;
 
-    public DateJobFilter(Date date) {
+    public DateJobFilter(Date date)
+    {
         this.date = date;
     }
 
     @Override
-    public boolean match(JobApplication application) {
-        return application != null &&
-                application.isAppliedOn(date);
+    public boolean match(JobApplication application)
+    {
+        return isFiledOnDate(application);
+    }
+
+    private boolean isFiledOnDate(JobApplication application)
+    {
+        return application != null && application.getDate().equals(date);
     }
 }

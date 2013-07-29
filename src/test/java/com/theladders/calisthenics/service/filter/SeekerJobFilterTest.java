@@ -2,7 +2,7 @@ package com.theladders.calisthenics.service.filter;
 
 import com.theladders.calisthenics.domain.ATS;
 import com.theladders.calisthenics.domain.JobApplication;
-import com.theladders.calisthenics.domain.JobApplicationInfo;
+import com.theladders.calisthenics.domain.JobApplicationDetails;
 import com.theladders.calisthenics.domain.JobSeeker;
 import org.junit.Test;
 
@@ -16,14 +16,15 @@ import static org.junit.Assert.assertTrue;
  * Date: 7/16/13
  * Time: 2:52 PM
  */
-public class SeekerJobFilterTest {
-
+public class SeekerJobFilterTest
+{
     SeekerJobFilter filter;
 
     @Test
-    public void testMatch() throws Exception {
+    public void testMatch() throws Exception
+    {
         JobSeeker seeker = new JobSeeker();
-        JobApplicationInfo info = new JobApplicationInfo(new ATS(), new Date());
+        JobApplicationDetails info = new JobApplicationDetails(new ATS(), new Date());
         filter = new SeekerJobFilter(seeker);
 
         JobApplication application = new JobApplication(seeker, info);
