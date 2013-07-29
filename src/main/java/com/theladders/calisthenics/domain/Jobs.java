@@ -1,6 +1,7 @@
 package com.theladders.calisthenics.domain;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -8,8 +9,26 @@ import java.util.List;
  * Date: 7/16/13
  * Time: 2:23 PM
  */
-public class Jobs {
+public class Jobs implements Iterable<Job>
+{
 
-    private List<Job> jobs = new ArrayList<>();
+    private List<Job> list = new ArrayList<>();
 
+    public Jobs(Job ...jobs)
+    {
+        for (Job job: jobs) {
+            list.add(job);
+        }
+    }
+
+    @Override
+    public Iterator<Job> iterator()
+    {
+        return list.iterator();
+    }
+
+    public int size()
+    {
+        return list.size();
+    }
 }
