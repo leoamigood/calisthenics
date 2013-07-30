@@ -19,6 +19,11 @@ public class JobApplications implements Iterable<JobApplication>
         jobApplications.addAll(Arrays.asList(applications));
     }
 
+    public JobApplications(Set<JobApplication> applications)
+    {
+        jobApplications.addAll(applications);
+    }
+
     public boolean add(JobApplication application)
     {
         return jobApplications.add(application);
@@ -26,7 +31,10 @@ public class JobApplications implements Iterable<JobApplication>
 
     public boolean addAll(JobApplications applications)
     {
-        return jobApplications.addAll(applications.jobApplications);
+        if (applications != null) {
+            return jobApplications.addAll(applications.jobApplications);
+        }
+        return false;
     }
 
     public int size()
@@ -43,5 +51,10 @@ public class JobApplications implements Iterable<JobApplication>
     public boolean isEmpty()
     {
         return jobApplications.isEmpty();
+    }
+
+    public boolean contains(JobApplication application)
+    {
+        return jobApplications.contains(application);
     }
 }

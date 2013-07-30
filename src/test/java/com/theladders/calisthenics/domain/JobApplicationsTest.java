@@ -32,6 +32,16 @@ public class JobApplicationsTest
     }
 
     @Test
+    public void testAddMultipleNull() throws Exception
+    {
+        JobApplicationDetails details = new JobApplicationDetails(new ATS(), new Date());
+        JobApplications applications = new JobApplications(new JobApplication(new JobSeeker(), details));
+        applications.addAll(new JobApplications(new JobApplication(new JobSeeker(), details)));
+        applications.addAll(null);
+        assertEquals(2, applications.size());
+    }
+
+    @Test
     public void testIsEmpty() throws Exception
     {
         JobApplicationDetails details = new JobApplicationDetails(new ATS(), new Date());

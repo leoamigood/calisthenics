@@ -35,7 +35,7 @@ public class JobSeekerServiceTest
     {
         Job ats = new ATS();
         JobApplicationDetails details = new JobApplicationDetails(ats, new Date());
-        when(appRepo.find(ats, jobSeeker)).thenReturn(new JobApplications());
+        when(appRepo.findSaved(jobSeeker)).thenReturn(new JobApplications());
 
         JobApplications applications = service.saveJobApplication(jobSeeker, ats);
         verify(appRepo, times(1)).saveJobApplication(jobSeeker, ats);
@@ -47,7 +47,7 @@ public class JobSeekerServiceTest
     {
         Job ats = new ATS();
         JobApplicationDetails details = new JobApplicationDetails(ats, new Date());
-        when(appRepo.find(ats, jobSeeker)).thenReturn(new JobApplications(new JobApplication(jobSeeker, details)));
+        when(appRepo.findSaved(jobSeeker)).thenReturn(new JobApplications(new JobApplication(jobSeeker, details)));
 
         JobApplications applications = service.saveJobApplication(jobSeeker, ats);
         verify(appRepo, times(0)).saveJobApplication(jobSeeker, ats);

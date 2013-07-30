@@ -13,7 +13,7 @@ public interface JobApplicationRepository
 {
     public JobApplications find(Job job);
     public JobApplications find(JobSeeker jobSeeker);
-    public JobApplications find(Job job, JobSeeker jobSeeker);
+    public JobApplications findSaved(JobSeeker jobSeeker);
 
     public JobApplications saveJobApplication(JobSeeker seeker, Job job);
 }

@@ -1,7 +1,6 @@
 package com.theladders.calisthenics.service.filter;
 
 import com.theladders.calisthenics.domain.*;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import java.util.Calendar;
@@ -85,11 +84,25 @@ public class JobFiltersTest
     }
 
     @Test
-    @Ignore
+    public void testMatchAllByJobSeeker() throws Exception
+    {
+        JobApplication additional = new JobApplication(seeker, new JobApplicationDetails(new ATS(), now));
+
+        JobFilters filters = new JobFilters(new SeekerJobFilter(seeker));
+        JobApplications applications = new JobApplications(application, additional);
+        assertTrue(filters.matchAll(applications));
+
+        applications.add(new JobApplication(new JobSeeker(), new JobApplicationDetails(new ATS(), now)));
+        assertFalse(filters.matchAll(applications));
+    }
+
+    @Test
     public void testApply()
     {
         JobFilters filters = new JobFilters(new SeekerJobFilter(seeker));
-        assertNotNull(filters.apply(new JobApplications(application)));
+        JobApplications applied = filters.apply(new JobApplications(application));
+        assertNotNull(applied);
+        assertTrue(applied.contains(application));
     }
 
     private Date getYesterdayDate() {

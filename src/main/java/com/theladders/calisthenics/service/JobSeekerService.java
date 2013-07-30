@@ -26,7 +26,7 @@ public class JobSeekerService
 
     public JobApplications saveJobApplication(JobSeeker seeker, Job job)
     {
-        JobApplications applications = appRepository.find(job, seeker);
+        JobApplications applications = appRepository.findSaved(seeker);
         if (applications.isEmpty()) {
             return appRepository.saveJobApplication(seeker, job);
         }
