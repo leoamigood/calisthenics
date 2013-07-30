@@ -17,18 +17,16 @@ import static org.junit.Assert.assertTrue;
  * Date: 7/17/13
  * Time: 9:57 AM
  */
-public class DateJobFilterTest
+public class SameDayJobFilterTest
 {
-    DateJobFilter filter;
-
-    Date now = new Date();
+    SameDayJobFilter filter;
 
     @Test
     public void testMatch() throws Exception
     {
         JobSeeker seeker = new JobSeeker();
-        JobApplicationDetails info = new JobApplicationDetails(new ATS(), now);
-        filter = new DateJobFilter(now);
+        JobApplicationDetails info = new JobApplicationDetails(new ATS(), getEarlierToday());
+        filter = new SameDayJobFilter(new Date());
 
         JobApplication application = new JobApplication(seeker, info);
         assertTrue(filter.match(application));
@@ -46,5 +44,11 @@ public class DateJobFilterTest
         return calendar.getTime();
     }
 
+    private Date getEarlierToday()
+    {
+        Calendar calendar = Calendar.getInstance();
+        calendar.add(Calendar.MILLISECOND, -1);
+        return calendar.getTime();
+    }
 }
 

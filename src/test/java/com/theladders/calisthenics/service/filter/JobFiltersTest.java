@@ -42,38 +42,38 @@ public class JobFiltersTest
     @Test
     public void testMatchByDate() throws Exception
     {
-        JobFilters filters = new JobFilters(new DateJobFilter(now));
+        JobFilters filters = new JobFilters(new SameDayJobFilter(now));
         assertTrue(filters.match(application));
     }
 
     @Test
     public void testDoesNotMatchByDate() throws Exception
     {
-        JobFilters filters = new JobFilters(new DateJobFilter(getYesterdayDate()));
+        JobFilters filters = new JobFilters(new SameDayJobFilter(getYesterdayDate()));
         assertFalse(filters.match(application));
     }
 
     @Test
     public void testMatchByJobSeekerAndDate() throws Exception
     {
-        JobFilters filters = new JobFilters(new SeekerJobFilter(seeker), new DateJobFilter(now));
+        JobFilters filters = new JobFilters(new SeekerJobFilter(seeker), new SameDayJobFilter(now));
         assertTrue(filters.match(application));
     }
 
     @Test
     public void testDoesNotMatchByJobSeekerButNotDate() throws Exception
     {
-        JobFilters filters = new JobFilters(new SeekerJobFilter(seeker), new DateJobFilter(getYesterdayDate()));
+        JobFilters filters = new JobFilters(new SeekerJobFilter(seeker), new SameDayJobFilter(getYesterdayDate()));
         assertFalse(filters.match(application));
     }
 
     @Test
     public void testDoesNotMatchByMultipleDates() throws Exception
     {
-        JobFilters filters = new JobFilters(new DateJobFilter(getYesterdayDate()), new DateJobFilter(now));
+        JobFilters filters = new JobFilters(new SameDayJobFilter(getYesterdayDate()), new SameDayJobFilter(now));
         assertFalse(filters.match(application));
 
-        JobFilters asArray = new JobFilters(new JobMatcher[] {new DateJobFilter(getYesterdayDate()), new DateJobFilter(now)});
+        JobFilters asArray = new JobFilters(new JobMatcher[] {new SameDayJobFilter(getYesterdayDate()), new SameDayJobFilter(now)});
         assertFalse(asArray.match(application));
     }
 

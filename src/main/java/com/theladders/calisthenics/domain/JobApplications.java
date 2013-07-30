@@ -1,6 +1,7 @@
 package com.theladders.calisthenics.domain;
 
 import java.util.Arrays;
+import java.util.Iterator;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
@@ -9,7 +10,7 @@ import java.util.Set;
  * Date: 7/16/13
  * Time: 2:17 PM
  */
-public class JobApplications
+public class JobApplications implements Iterable<JobApplication>
 {
     private Set<JobApplication> jobApplications = new LinkedHashSet<>();
 
@@ -31,5 +32,11 @@ public class JobApplications
     public int size()
     {
         return jobApplications.size();
+    }
+
+    @Override
+    public Iterator<JobApplication> iterator()
+    {
+        return jobApplications.iterator();
     }
 }
