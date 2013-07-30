@@ -23,13 +23,18 @@ public class JobApplication
         return seeker;
     }
 
-    public Job getJob()
+    public boolean isSaved()
     {
-        return info.getJob();
+        return false;
     }
 
     public Date getDate()
     {
         return info.getDate();
+    }
+
+    public Job getJob()
+    {
+        return info.getJob();
     }
 }

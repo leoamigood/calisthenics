@@ -4,7 +4,7 @@ import org.junit.Test;
 
 import java.util.Date;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.*;
 
 /**
  * User: Leo Amigood <lamigud@theladders.com>
@@ -29,5 +29,19 @@ public class JobApplicationsTest
         JobApplications applications = new JobApplications(new JobApplication(new JobSeeker(), details));
         applications.addAll(new JobApplications(new JobApplication(new JobSeeker(), details)));
         assertEquals(2, applications.size());
+    }
+
+    @Test
+    public void testIsEmpty() throws Exception
+    {
+        JobApplicationDetails details = new JobApplicationDetails(new ATS(), new Date());
+        JobApplications applications = new JobApplications();
+        assertTrue(applications.isEmpty());
+
+        applications.add(new JobApplication(new JobSeeker(), details));
+        assertFalse(applications.isEmpty());
+
+        applications.addAll(new JobApplications(new JobApplication(new JobSeeker(), details)));
+        assertFalse(applications.isEmpty());
     }
 }

@@ -32,16 +32,16 @@ public class RecruitService
     }
 
     public Jobs getPostedJobs(final Recruiter recruiter) {
-        return jobRepository.findByRecruiter(recruiter);
+        return jobRepository.find(recruiter);
     }
 
     public JobApplications getJobApplications(final Recruiter recruiter)
     {
-        Jobs jobs = jobRepository.findByRecruiter(recruiter);
+        Jobs jobs = jobRepository.find(recruiter);
 
         JobApplications combined = new JobApplications();
         for (Job job: jobs) {
-            JobApplications applications = appRepository.findByJob(job);
+            JobApplications applications = appRepository.find(job);
             combined.addAll(applications);
         }
 

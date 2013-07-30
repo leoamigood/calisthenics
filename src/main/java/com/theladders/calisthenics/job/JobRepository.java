@@ -3,7 +3,6 @@ package com.theladders.calisthenics.job;
 import com.theladders.calisthenics.domain.Job;
 import com.theladders.calisthenics.domain.Jobs;
 import com.theladders.calisthenics.domain.Recruiter;
-import com.theladders.calisthenics.service.filter.JobFilters;
 
 /**
  * User: Leo Amigood <lamigud@theladders.com>
@@ -13,5 +12,5 @@ import com.theladders.calisthenics.service.filter.JobFilters;
 public interface JobRepository
 {
     public boolean addJob(Recruiter recruiter, Job job);
-    public Jobs findByRecruiter(Recruiter recruiter);
+    public Jobs find(Recruiter recruiter);
 }

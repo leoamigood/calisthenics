@@ -39,4 +39,9 @@ public class JobApplications implements Iterable<JobApplication>
     {
         return jobApplications.iterator();
     }
+
+    public boolean isEmpty()
+    {
+        return jobApplications.isEmpty();
+    }
 }

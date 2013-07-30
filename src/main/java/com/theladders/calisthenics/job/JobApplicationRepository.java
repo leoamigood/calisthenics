@@ -2,6 +2,7 @@ package com.theladders.calisthenics.job;
 
 import com.theladders.calisthenics.domain.Job;
 import com.theladders.calisthenics.domain.JobApplications;
+import com.theladders.calisthenics.domain.JobSeeker;
 
 /**
  * User: Leo Amigood <lamigud@theladders.com>
@@ -10,5 +11,9 @@ import com.theladders.calisthenics.domain.JobApplications;
  */
 public interface JobApplicationRepository
 {
-    public JobApplications findByJob(Job job);
+    public JobApplications find(Job job);
+    public JobApplications find(JobSeeker jobSeeker);
+    public JobApplications find(Job job, JobSeeker jobSeeker);
+
+    public JobApplications saveJobApplication(JobSeeker seeker, Job job);
 }

@@ -64,7 +64,7 @@ public class RecruitServiceTest
     public void testGetPostedJobs()
     {
         service.getPostedJobs(recruiter);
-        verify(jobRepo).findByRecruiter(recruiter);
+        verify(jobRepo).find(recruiter);
     }
 
     @Test
@@ -77,8 +77,8 @@ public class RecruitServiceTest
         JobSeeker seeker = new JobSeeker();
         applications.add(new JobApplication(seeker, new JobApplicationDetails(jReq, new Date())));
 
-        when(jobRepo.findByRecruiter(recruiter)).thenReturn(jobs);
-        when(appRepo.findByJob(jReq)).thenReturn(applications);
+        when(jobRepo.find(recruiter)).thenReturn(jobs);
+        when(appRepo.find(jReq)).thenReturn(applications);
         assertEquals(1, service.getApplicants(recruiter).size());
         assertTrue(service.getApplicants(recruiter).contains(seeker));
     }
@@ -94,9 +94,9 @@ public class RecruitServiceTest
         JobApplications atsApplications = new JobApplications(new JobApplication(seeker, new JobApplicationDetails(ats, new Date())));
         JobApplications jReqApplications = new JobApplications(new JobApplication(seeker, new JobApplicationDetails(jReq, new Date())));
 
-        when(jobRepo.findByRecruiter(recruiter)).thenReturn(jobs);
-        when(appRepo.findByJob(ats)).thenReturn(atsApplications);
-        when(appRepo.findByJob(jReq)).thenReturn(jReqApplications);
+        when(jobRepo.find(recruiter)).thenReturn(jobs);
+        when(appRepo.find(ats)).thenReturn(atsApplications);
+        when(appRepo.find(jReq)).thenReturn(jReqApplications);
         assertEquals(2, service.getJobApplications(recruiter).size());
         assertEquals(1, service.getApplicants(recruiter).size()); //same job seeker applied for ATS and jReq jobs
 
