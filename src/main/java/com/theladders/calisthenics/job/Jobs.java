@@ -1,8 +1,6 @@
 package com.theladders.calisthenics.job;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
+import java.util.*;
 
 /**
  * User: Leo Amigood <lamigud@theladders.com>
@@ -11,24 +9,28 @@ import java.util.List;
  */
 public class Jobs implements Iterable<Job>
 {
+    private Set<Job> jobs = new HashSet<>();
 
-    private List<Job> list = new ArrayList<>();
-
-    public Jobs(Job ...jobs)
+    public Jobs(final Job ...jobs)
     {
         for (Job job: jobs) {
-            list.add(job);
+            this.jobs.add(job);
         }
     }
 
     @Override
     public Iterator<Job> iterator()
     {
-        return list.iterator();
+        return jobs.iterator();
     }
 
     public int size()
     {
-        return list.size();
+        return jobs.size();
+    }
+
+    public void add(Job job)
+    {
+        jobs.add(job);
     }
 }

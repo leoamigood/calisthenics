@@ -13,8 +13,16 @@ import java.util.Date;
  */
 public class CompletedJobApplication extends JobApplication
 {
-    public CompletedJobApplication(JobSeeker jobSeeker, Resume resume, Job job)
+    public CompletedJobApplication(final JobSeeker jobSeeker,
+                                   final Resume resume,
+                                   final Job job)
     {
         super(jobSeeker, new JobApplicationDetails(job, new Date()));
+    }
+
+    @Override
+    public JobApplicationState status()
+    {
+        return JobApplicationState.SUCCESS;
     }
 }

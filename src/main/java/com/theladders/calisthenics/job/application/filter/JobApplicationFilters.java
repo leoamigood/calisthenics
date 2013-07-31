@@ -1,4 +1,4 @@
-package com.theladders.calisthenics.filter;
+package com.theladders.calisthenics.job.application.filter;
 
 import com.theladders.calisthenics.job.application.JobApplication;
 import com.theladders.calisthenics.job.application.JobApplications;
@@ -12,27 +12,27 @@ import java.util.List;
  * Date: 7/16/13
  * Time: 2:39 PM
  */
-public class JobFilters implements JobMatcher
+public class JobApplicationFilters implements JobApplicationMatcher
 {
-    private List<JobMatcher> filters = new ArrayList<>();
+    private List<JobApplicationMatcher> filters = new ArrayList<>();
 
-    public JobFilters(JobMatcher...filters)
+    public JobApplicationFilters(final JobApplicationMatcher... filters)
     {
         this.filters.addAll(Arrays.asList(filters));
     }
 
     @Override
-    public boolean match(JobApplication application)
+    public boolean match(final JobApplication application)
     {
         if (application == null) throw new NullPointerException();
 
-        for (JobMatcher filter : filters) {
+        for (JobApplicationMatcher filter : filters) {
             if (!filter.match(application)) return false;
         }
         return true;
     }
 
-    public boolean matchAll(JobApplications applications)
+    public boolean matchAll(final JobApplications applications)
     {
         for (JobApplication application: applications) {
             if (!match(application)) return false;
@@ -41,16 +41,18 @@ public class JobFilters implements JobMatcher
         return true;
     }
 
-    public JobApplications apply(JobApplications applications)
+    public JobApplications apply(final JobApplications applications)
     {
         JobApplications applied = new JobApplications();
-        for (JobMatcher filter: filters) {
+        for (JobApplicationMatcher filter: filters) {
             apply(applications, applied, filter);
         }
         return applied;
     }
 
-    private void apply(JobApplications applications, JobApplications applied, JobMatcher filter)
+    private void apply(final JobApplications applications,
+                       final JobApplications applied,
+                       final JobApplicationMatcher filter)
     {
         for (JobApplication application: applications) {
             if (filter.match(application)) {

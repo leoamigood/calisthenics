@@ -1,4 +1,4 @@
-package com.theladders.calisthenics.filter;
+package com.theladders.calisthenics.job.application.filter;
 
 import com.theladders.calisthenics.actor.JobSeeker;
 import com.theladders.calisthenics.job.ATS;
@@ -19,7 +19,7 @@ import static org.junit.Assert.*;
  * Time: 10:46 AM
  * To change this template use File | Settings | File Templates.
  */
-public class JobFiltersTest
+public class JobApplicationFiltersTest
 {
     Date now = new Date();
     JobSeeker seeker = new JobSeeker();
@@ -29,7 +29,7 @@ public class JobFiltersTest
     @Test
     public void testMatchByJobSeeker() throws Exception
     {
-        JobFilters filters = new JobFilters(new SeekerJobFilter(seeker));
+        JobApplicationFilters filters = new JobApplicationFilters(new SeekerJobApplicationFilter(seeker));
         assertTrue(filters.match(application));
     }
 
@@ -38,52 +38,52 @@ public class JobFiltersTest
     {
         JobApplication different = new JobApplication(new JobSeeker(), new JobApplicationDetails(new ATS(), now));
 
-        JobFilters filters = new JobFilters(new SeekerJobFilter(seeker));
+        JobApplicationFilters filters = new JobApplicationFilters(new SeekerJobApplicationFilter(seeker));
         assertFalse(filters.match(different));
     }
 
     @Test
     public void testMatchByDate() throws Exception
     {
-        JobFilters filters = new JobFilters(new SameDayJobFilter(now));
+        JobApplicationFilters filters = new JobApplicationFilters(new SameDayJobApplicationFilter(now));
         assertTrue(filters.match(application));
     }
 
     @Test
     public void testDoesNotMatchByDate() throws Exception
     {
-        JobFilters filters = new JobFilters(new SameDayJobFilter(getYesterdayDate()));
+        JobApplicationFilters filters = new JobApplicationFilters(new SameDayJobApplicationFilter(getYesterdayDate()));
         assertFalse(filters.match(application));
     }
 
     @Test
     public void testMatchByJobSeekerAndDate() throws Exception
     {
-        JobFilters filters = new JobFilters(new SeekerJobFilter(seeker), new SameDayJobFilter(now));
+        JobApplicationFilters filters = new JobApplicationFilters(new SeekerJobApplicationFilter(seeker), new SameDayJobApplicationFilter(now));
         assertTrue(filters.match(application));
     }
 
     @Test
     public void testDoesNotMatchByJobSeekerButNotDate() throws Exception
     {
-        JobFilters filters = new JobFilters(new SeekerJobFilter(seeker), new SameDayJobFilter(getYesterdayDate()));
+        JobApplicationFilters filters = new JobApplicationFilters(new SeekerJobApplicationFilter(seeker), new SameDayJobApplicationFilter(getYesterdayDate()));
         assertFalse(filters.match(application));
     }
 
     @Test
     public void testDoesNotMatchByMultipleDates() throws Exception
     {
-        JobFilters filters = new JobFilters(new SameDayJobFilter(getYesterdayDate()), new SameDayJobFilter(now));
+        JobApplicationFilters filters = new JobApplicationFilters(new SameDayJobApplicationFilter(getYesterdayDate()), new SameDayJobApplicationFilter(now));
         assertFalse(filters.match(application));
 
-        JobFilters asArray = new JobFilters(new JobMatcher[] {new SameDayJobFilter(getYesterdayDate()), new SameDayJobFilter(now)});
+        JobApplicationFilters asArray = new JobApplicationFilters(new JobApplicationMatcher[] {new SameDayJobApplicationFilter(getYesterdayDate()), new SameDayJobApplicationFilter(now)});
         assertFalse(asArray.match(application));
     }
 
     @Test(expected = NullPointerException.class)
     public void testNullApplication() throws Exception
     {
-        JobFilters filters = new JobFilters(new SeekerJobFilter(seeker));
+        JobApplicationFilters filters = new JobApplicationFilters(new SeekerJobApplicationFilter(seeker));
         assertFalse(filters.match(null));
     }
 
@@ -92,7 +92,7 @@ public class JobFiltersTest
     {
         JobApplication additional = new JobApplication(seeker, new JobApplicationDetails(new ATS(), now));
 
-        JobFilters filters = new JobFilters(new SeekerJobFilter(seeker));
+        JobApplicationFilters filters = new JobApplicationFilters(new SeekerJobApplicationFilter(seeker));
         JobApplications applications = new JobApplications(application, additional);
         assertTrue(filters.matchAll(applications));
 
@@ -103,7 +103,7 @@ public class JobFiltersTest
     @Test
     public void testApply()
     {
-        JobFilters filters = new JobFilters(new SeekerJobFilter(seeker));
+        JobApplicationFilters filters = new JobApplicationFilters(new SeekerJobApplicationFilter(seeker));
         JobApplications applied = filters.apply(new JobApplications(application));
         assertNotNull(applied);
         assertTrue(applied.contains(application));

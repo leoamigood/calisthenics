@@ -1,4 +1,4 @@
-package com.theladders.calisthenics.filter;
+package com.theladders.calisthenics.job.application.filter;
 
 import com.theladders.calisthenics.job.application.JobApplication;
 
@@ -7,7 +7,7 @@ import com.theladders.calisthenics.job.application.JobApplication;
  * Date: 7/16/13
  * Time: 2:39 PM
  */
-public interface JobMatcher
+public interface JobApplicationMatcher
 {
     public boolean match(JobApplication application);
 }

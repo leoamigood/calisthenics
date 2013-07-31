@@ -1,4 +1,4 @@
-package com.theladders.calisthenics.filter;
+package com.theladders.calisthenics.job.application.filter;
 
 import com.theladders.calisthenics.actor.JobSeeker;
 import com.theladders.calisthenics.job.ATS;

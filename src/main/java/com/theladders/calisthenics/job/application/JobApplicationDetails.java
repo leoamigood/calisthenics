@@ -14,17 +14,17 @@ public class JobApplicationDetails
     private Job job;
     private Date appliedOn;
 
-    public JobApplicationDetails(Job job, Date appliedOn)
+    public JobApplicationDetails(final Job job, final Date appliedOn)
     {
         this.job = job;
         this.appliedOn = appliedOn;
     }
 
-    public Job getJob() {
+    public Job job() {
         return job;
     }
 
-    public Date getDate()
+    public Date date()
     {
         return appliedOn;
     }

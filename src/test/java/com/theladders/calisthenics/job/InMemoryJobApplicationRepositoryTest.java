@@ -35,7 +35,6 @@ public class InMemoryJobApplicationRepositoryTest
         assertNotNull(repository.find(new ATS()));
         assertEquals(0, repository.find(new ATS()).size());
         assertEquals(0, repository.find(new JobSeeker()).size());
-        assertEquals(0, repository.findSaved(new JobSeeker()).size());
     }
 
     @Test
@@ -71,7 +70,7 @@ public class InMemoryJobApplicationRepositoryTest
         repository.save(new SavedJobApplication(jobSeeker, new JobApplicationDetails(new ATS(), new Date())));
         repository.save(new SavedJobApplication(jobSeeker, new JobApplicationDetails(new JReq(), new Date())));
 
-        JobApplications applications = repository.findSaved(jobSeeker);
+        JobApplications applications = repository.find(jobSeeker);
         assertEquals(2, applications.size());
     }
 

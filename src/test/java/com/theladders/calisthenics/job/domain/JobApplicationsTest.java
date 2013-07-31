@@ -59,4 +59,15 @@ public class JobApplicationsTest
         applications.addAll(new JobApplications(new JobApplication(new JobSeeker(), details)));
         assertFalse(applications.isEmpty());
     }
+
+    @Test
+    public void testJobs()
+    {
+        JobApplications applications = new JobApplications();
+        assertEquals(0, applications.jobs().size());
+
+        JobApplicationDetails details = new JobApplicationDetails(new ATS(), new Date());
+        applications.add(new JobApplication(new JobSeeker(), details));
+        assertEquals(1, applications.jobs().size());
+    }
 }

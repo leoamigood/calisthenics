@@ -1,5 +1,7 @@
 package com.theladders.calisthenics.job.application;
 
+import com.theladders.calisthenics.job.Jobs;
+
 import java.util.Arrays;
 import java.util.Iterator;
 import java.util.LinkedHashSet;
@@ -14,27 +16,36 @@ public class JobApplications implements Iterable<JobApplication>
 {
     private Set<JobApplication> jobApplications = new LinkedHashSet<>();
 
-    public JobApplications(JobApplication ...applications)
+    public JobApplications(final JobApplication ...applications)
     {
         jobApplications.addAll(Arrays.asList(applications));
     }
 
-    public JobApplications(Set<JobApplication> applications)
+    public JobApplications(final Set<JobApplication> applications)
     {
         jobApplications.addAll(applications);
     }
 
-    public boolean add(JobApplication application)
+    public boolean add(final JobApplication application)
     {
         return jobApplications.add(application);
     }
 
-    public boolean addAll(JobApplications applications)
+    public boolean addAll(final JobApplications applications)
     {
         if (applications != null) {
             return jobApplications.addAll(applications.jobApplications);
         }
         return false;
+    }
+
+    public Jobs jobs()
+    {
+        Jobs jobs = new Jobs();
+        for (JobApplication application: jobApplications) {
+            jobs.add(application.job());
+        }
+        return jobs;
     }
 
     public int size()
@@ -53,7 +64,7 @@ public class JobApplications implements Iterable<JobApplication>
         return jobApplications.isEmpty();
     }
 
-    public boolean contains(JobApplication application)
+    public boolean contains(final JobApplication application)
     {
         return jobApplications.contains(application);
     }

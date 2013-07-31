@@ -2,7 +2,7 @@ package com.theladders.calisthenics.service;
 
 import com.theladders.calisthenics.actor.JobSeekers;
 import com.theladders.calisthenics.actor.Recruiter;
-import com.theladders.calisthenics.filter.JobFilters;
+import com.theladders.calisthenics.job.application.filter.JobApplicationFilters;
 import com.theladders.calisthenics.job.Job;
 import com.theladders.calisthenics.job.Jobs;
 import com.theladders.calisthenics.job.application.JobApplication;
@@ -57,7 +57,7 @@ public class RecruitService
         return getApplicants(recruiter, null);
     }
 
-    public JobSeekers getApplicants(final Recruiter recruiter, final JobFilters filters)
+    public JobSeekers getApplicants(final Recruiter recruiter, final JobApplicationFilters filters)
     {
         JobApplications applications = getJobApplications(recruiter);
 
@@ -72,7 +72,7 @@ public class RecruitService
     {
         JobSeekers seekers = new JobSeekers();
         for (JobApplication application: applications) {
-            seekers.add(application.getApplicant());
+            seekers.add(application.applicant());
         }
 
         return seekers;

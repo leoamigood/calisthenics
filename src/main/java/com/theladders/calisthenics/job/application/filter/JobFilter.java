@@ -1,4 +1,4 @@
-package com.theladders.calisthenics.filter;
+package com.theladders.calisthenics.job.application.filter;
 
 import com.theladders.calisthenics.job.Job;
 import com.theladders.calisthenics.job.application.JobApplication;
@@ -8,18 +8,19 @@ import com.theladders.calisthenics.job.application.JobApplication;
  * Date: 7/29/13
  * Time: 1:52 PM
  */
-public class JobFilter implements JobMatcher
+public class JobFilter implements JobApplicationMatcher
 {
     private Job job;
 
-    public JobFilter(Job job) {
+    public JobFilter(final Job job)
+    {
         this.job = job;
     }
 
     @Override
-    public boolean match(JobApplication application)
+    public boolean match(final JobApplication application)
     {
-        return application.getJob().equals(job);
+        return application.job().equals(job);
     }
 
 }

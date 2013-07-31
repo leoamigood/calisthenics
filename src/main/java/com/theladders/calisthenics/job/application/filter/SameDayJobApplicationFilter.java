@@ -1,4 +1,4 @@
-package com.theladders.calisthenics.filter;
+package com.theladders.calisthenics.job.application.filter;
 
 import com.theladders.calisthenics.job.application.JobApplication;
 import org.apache.commons.lang.time.DateUtils;
@@ -10,19 +10,19 @@ import java.util.Date;
  * Date: 7/16/13
  * Time: 5:45 PM
  */
-public class SameDayJobFilter implements JobMatcher
+public class SameDayJobApplicationFilter implements JobApplicationMatcher
 {
     private Date date;
 
-    public SameDayJobFilter(Date date)
+    public SameDayJobApplicationFilter(final Date date)
     {
         this.date = date;
     }
 
     @Override
-    public boolean match(JobApplication application)
+    public boolean match(final JobApplication application)
     {
-        return DateUtils.isSameDay(application.getDate(), date);
+        return DateUtils.isSameDay(application.date(), date);
     }
 
 }

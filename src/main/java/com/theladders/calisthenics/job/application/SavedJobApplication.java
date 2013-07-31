@@ -15,8 +15,8 @@ public class SavedJobApplication extends JobApplication
     }
 
     @Override
-    public boolean isSaved()
+    public JobApplicationState status()
     {
-        return true;
+        return JobApplicationState.ON_WATCH_LIST;
     }
 }

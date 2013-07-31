@@ -15,8 +15,5 @@ public interface JobApplicationRepository
     public JobApplications find(Job job);
     public JobApplications find(JobSeeker jobSeeker);
 
-    public JobApplications findSaved(JobSeeker jobSeeker);
-    public JobApplications findSaved(JobSeeker jobSeeker, Job job);
-
     public void save(JobApplication application);
 }

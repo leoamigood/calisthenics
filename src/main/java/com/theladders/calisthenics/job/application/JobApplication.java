@@ -15,29 +15,29 @@ public class JobApplication
     private JobSeeker jobSeeker;
     private JobApplicationDetails info;
 
-    public JobApplication(JobSeeker jobSeeker, JobApplicationDetails info)
+    public JobApplication(final JobSeeker jobSeeker, final JobApplicationDetails info)
     {
         this.jobSeeker = jobSeeker;
         this.info = info;
     }
 
-    public JobSeeker getApplicant()
+    public JobSeeker applicant()
     {
         return jobSeeker;
     }
 
-    public boolean isSaved()
+    public Date date()
     {
-        return false;
+        return info.date();
     }
 
-    public Date getDate()
+    public Job job()
     {
-        return info.getDate();
+        return info.job();
     }
 
-    public Job getJob()
+    public JobApplicationState status()
     {
-        return info.getJob();
+        return JobApplicationState.INCOMPLETE;
     }
 }

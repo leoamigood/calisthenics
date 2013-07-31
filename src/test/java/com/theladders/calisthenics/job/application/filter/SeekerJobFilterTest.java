@@ -1,37 +1,37 @@
-package com.theladders.calisthenics.filter;
+package com.theladders.calisthenics.job.application.filter;
 
 import com.theladders.calisthenics.actor.JobSeeker;
 import com.theladders.calisthenics.job.ATS;
 import com.theladders.calisthenics.job.application.JobApplication;
 import com.theladders.calisthenics.job.application.JobApplicationDetails;
-import com.theladders.calisthenics.job.application.SavedJobApplication;
 import org.junit.Test;
 
 import java.util.Date;
 
-import static junit.framework.Assert.assertFalse;
-import static junit.framework.Assert.assertTrue;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 /**
  * User: Leo Amigood <lamigud@theladders.com>
- * Date: 7/30/13
- * Time: 1:54 PM
+ * Date: 7/16/13
+ * Time: 2:52 PM
  */
-public class SavedJobApplicationFilterTest
+public class SeekerJobFilterTest
 {
-    SavedJobApplicationFilter filter;
+    SeekerJobApplicationFilter filter;
 
     @Test
     public void testMatch() throws Exception
     {
         JobSeeker seeker = new JobSeeker();
         JobApplicationDetails info = new JobApplicationDetails(new ATS(), new Date());
-        filter = new SavedJobApplicationFilter();
+        filter = new SeekerJobApplicationFilter(seeker);
 
         JobApplication application = new JobApplication(seeker, info);
-        assertFalse(filter.match(application));
+        assertTrue(filter.match(application));
+        assertTrue(filter.match(new JobApplication(seeker, new JobApplicationDetails(new ATS(), new Date()))));
 
-        JobApplication saved = new SavedJobApplication(seeker, info);
-        assertTrue(filter.match(saved));
+        assertFalse(filter.match(new JobApplication(new JobSeeker(), info)));
     }
+
 }
