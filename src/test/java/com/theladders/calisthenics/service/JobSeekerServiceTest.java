@@ -1,14 +1,22 @@
 package com.theladders.calisthenics.service;
 
-import com.theladders.calisthenics.domain.*;
-import com.theladders.calisthenics.job.JobApplicationRepository;
-import com.theladders.calisthenics.job.JobRepository;
+import com.theladders.calisthenics.actor.JobSeeker;
+import com.theladders.calisthenics.job.ATS;
+import com.theladders.calisthenics.job.Job;
+import com.theladders.calisthenics.job.application.JobApplication;
+import com.theladders.calisthenics.job.application.JobApplicationDetails;
+import com.theladders.calisthenics.job.application.JobApplications;
+import com.theladders.calisthenics.job.application.SavedJobApplication;
+import com.theladders.calisthenics.job.policy.ResumePolicy;
+import com.theladders.calisthenics.repo.JobApplicationRepository;
+import com.theladders.calisthenics.resume.BasicResume;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
 
 import java.util.Date;
 
+import static org.junit.Assert.assertNotNull;
 import static org.mockito.Mockito.*;
 
 /**
@@ -21,36 +29,41 @@ public class JobSeekerServiceTest
     JobSeekerService service;
     JobSeeker jobSeeker = new JobSeeker();
 
-    JobRepository jobRepo = Mockito.mock(JobRepository.class);
     JobApplicationRepository appRepo = Mockito.mock(JobApplicationRepository.class);
 
     @Before
     public void setUp()
     {
-        service = new JobSeekerService(jobRepo, appRepo);
+        service = new JobSeekerService(appRepo);
     }
 
     @Test
     public void testSaveNonExistingJobApplication() throws Exception
     {
-        Job ats = new ATS();
-        JobApplicationDetails details = new JobApplicationDetails(ats, new Date());
-        when(appRepo.findSaved(jobSeeker)).thenReturn(new JobApplications());
+        Job job = new ATS();
+        JobApplicationDetails details = new JobApplicationDetails(job, new Date());
+        when(appRepo.findSaved(jobSeeker, job)).thenReturn(new JobApplications());
 
-        JobApplications applications = service.saveJobApplication(jobSeeker, ats);
-        verify(appRepo, times(1)).saveJobApplication(jobSeeker, ats);
+        service.saveJobApplication(jobSeeker, job);
+        verify(appRepo, times(1)).save(any(SavedJobApplication.class));
 
     }
 
     @Test
     public void testSaveExistingJobApplication() throws Exception
     {
-        Job ats = new ATS();
-        JobApplicationDetails details = new JobApplicationDetails(ats, new Date());
-        when(appRepo.findSaved(jobSeeker)).thenReturn(new JobApplications(new JobApplication(jobSeeker, details)));
+        Job job = new ATS();
+        JobApplicationDetails details = new JobApplicationDetails(job, new Date());
+        when(appRepo.findSaved(jobSeeker, job)).thenReturn(new JobApplications(new JobApplication(jobSeeker, details)));
 
-        JobApplications applications = service.saveJobApplication(jobSeeker, ats);
-        verify(appRepo, times(0)).saveJobApplication(jobSeeker, ats);
+        service.saveJobApplication(jobSeeker, job);
+        verify(appRepo, times(0)).save(any(SavedJobApplication.class));
+    }
+
+    @Test
+    public void testApply()
+    {
+        assertNotNull(service.apply(jobSeeker, new BasicResume(), new ATS(), new ResumePolicy()));
     }
 
 }

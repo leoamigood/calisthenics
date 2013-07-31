@@ -1,12 +1,16 @@
 package com.theladders.calisthenics.service;
 
-import com.theladders.calisthenics.domain.Job;
-import com.theladders.calisthenics.domain.JobApplications;
-import com.theladders.calisthenics.domain.JobSeeker;
-import com.theladders.calisthenics.job.JobApplicationRepository;
-import com.theladders.calisthenics.job.JobRepository;
-import com.theladders.calisthenics.service.filter.JobFilters;
-import com.theladders.calisthenics.service.filter.SavedJobApplicationFilter;
+import com.theladders.calisthenics.actor.JobSeeker;
+import com.theladders.calisthenics.filter.JobFilters;
+import com.theladders.calisthenics.filter.SavedJobApplicationFilter;
+import com.theladders.calisthenics.job.Job;
+import com.theladders.calisthenics.job.application.*;
+import com.theladders.calisthenics.job.policy.JobPolicy;
+import com.theladders.calisthenics.job.policy.Restrictions;
+import com.theladders.calisthenics.repo.JobApplicationRepository;
+import com.theladders.calisthenics.resume.Resume;
+
+import java.util.Date;
 
 /**
  * User: Leo Amigood <lamigud@theladders.com>
@@ -15,30 +19,38 @@ import com.theladders.calisthenics.service.filter.SavedJobApplicationFilter;
  */
 public class JobSeekerService
 {
-    private JobRepository jobRepository;
     private JobApplicationRepository appRepository;
 
-    public JobSeekerService(JobRepository jobRepository, JobApplicationRepository appRepository)
+    public JobSeekerService(JobApplicationRepository appRepository)
     {
-        this.jobRepository = jobRepository;
         this.appRepository = appRepository;
     }
 
-    public JobApplications saveJobApplication(JobSeeker seeker, Job job)
+    public void saveJobApplication(JobSeeker jobSeeker, Job job)
     {
-        JobApplications applications = appRepository.findSaved(seeker);
+        JobApplications applications = appRepository.findSaved(jobSeeker, job);
         if (applications.isEmpty()) {
-            return appRepository.saveJobApplication(seeker, job);
+            JobApplicationDetails details = new JobApplicationDetails(job, new Date());
+            appRepository.save(new SavedJobApplication(jobSeeker, details));
         }
-
-        return applications;
     }
 
-    public JobApplications getSavedApplications(JobSeeker jobSeeker) {
+    public JobApplications getSavedApplications(JobSeeker jobSeeker)
+    {
         JobApplications applications = appRepository.find(jobSeeker);
         return new JobFilters(new SavedJobApplicationFilter()).apply(applications);
     }
 
-//    public JobApplication apply(JobSeeker seeker, Job job) throws Exception;
+    public JobApplication apply(JobSeeker jobSeeker,
+                                Resume resume,
+                                Job job,
+                                JobPolicy policy)
+    {
+        Restrictions restrictions = policy.getRestrictions(jobSeeker, resume, job);
+        if (restrictions.isNone()) {
+            appRepository.save(new CompletedJobApplication(jobSeeker, resume, job));
+        }
+        return new DeniedJobApplication(jobSeeker, resume, job, restrictions);
+    }
 
 }

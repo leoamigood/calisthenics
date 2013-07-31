@@ -1,9 +1,14 @@
 package com.theladders.calisthenics.service;
 
-import com.theladders.calisthenics.domain.*;
-import com.theladders.calisthenics.job.JobApplicationRepository;
-import com.theladders.calisthenics.job.JobRepository;
-import com.theladders.calisthenics.service.filter.JobFilters;
+import com.theladders.calisthenics.actor.JobSeekers;
+import com.theladders.calisthenics.actor.Recruiter;
+import com.theladders.calisthenics.filter.JobFilters;
+import com.theladders.calisthenics.job.Job;
+import com.theladders.calisthenics.job.Jobs;
+import com.theladders.calisthenics.job.application.JobApplication;
+import com.theladders.calisthenics.job.application.JobApplications;
+import com.theladders.calisthenics.repo.JobApplicationRepository;
+import com.theladders.calisthenics.repo.JobRepository;
 
 /**
  * User: Leo Amigood <lamigud@theladders.com>

@@ -1,8 +1,16 @@
 package com.theladders.calisthenics.service;
 
-import com.theladders.calisthenics.domain.*;
-import com.theladders.calisthenics.job.JobApplicationRepository;
-import com.theladders.calisthenics.job.JobRepository;
+import com.theladders.calisthenics.actor.JobSeeker;
+import com.theladders.calisthenics.actor.Recruiter;
+import com.theladders.calisthenics.job.ATS;
+import com.theladders.calisthenics.job.JReq;
+import com.theladders.calisthenics.job.Job;
+import com.theladders.calisthenics.job.Jobs;
+import com.theladders.calisthenics.job.application.JobApplication;
+import com.theladders.calisthenics.job.application.JobApplicationDetails;
+import com.theladders.calisthenics.job.application.JobApplications;
+import com.theladders.calisthenics.repo.JobApplicationRepository;
+import com.theladders.calisthenics.repo.JobRepository;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
