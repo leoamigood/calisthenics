@@ -33,4 +33,9 @@ public class Jobs implements Iterable<Job>
     {
         jobs.add(job);
     }
+
+    public boolean contains(Job job)
+    {
+        return jobs.contains(job);
+    }
 }

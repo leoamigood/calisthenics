@@ -4,20 +4,25 @@ import com.theladders.calisthenics.actor.JobSeeker;
 import com.theladders.calisthenics.job.ATS;
 import com.theladders.calisthenics.job.JReq;
 import com.theladders.calisthenics.job.Job;
+import com.theladders.calisthenics.job.Jobs;
 import com.theladders.calisthenics.job.application.JobApplication;
 import com.theladders.calisthenics.job.application.JobApplicationDetails;
 import com.theladders.calisthenics.job.application.JobApplications;
 import com.theladders.calisthenics.job.application.SavedJobApplication;
+import com.theladders.calisthenics.job.policy.NullPolicy;
 import com.theladders.calisthenics.job.policy.ResumePolicy;
+import com.theladders.calisthenics.repo.InMemoryJobApplicationRepository;
 import com.theladders.calisthenics.repo.JobApplicationRepository;
 import com.theladders.calisthenics.resume.BasicResume;
 import com.theladders.calisthenics.resume.Resume;
+import junit.framework.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
 
 import java.util.Date;
 
+import static junit.framework.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
@@ -62,6 +67,32 @@ public class JobSeekerServiceTest
 
         service.saveJobApplication(jobSeeker, job);
         verify(appRepo, times(0)).save(any(SavedJobApplication.class));
+    }
+
+    @Test
+    public void testListJobsSaved()
+    {
+        Job ats = new ATS();
+        Job jReq = new JReq();
+        service = new JobSeekerService(new InMemoryJobApplicationRepository());
+        service.saveJobApplication(jobSeeker, ats);
+        Jobs jobs = service.getJobsSaved(jobSeeker);
+        assertEquals(1, jobs.size());
+        assertTrue(jobs.contains(ats));
+        assertFalse(jobs.contains(jReq));
+    }
+
+    @Test
+    public void testListJobsApplied()
+    {
+        Job ats = new ATS();
+        Job jReq = new JReq();
+        service = new JobSeekerService(new InMemoryJobApplicationRepository());
+        service.apply(jobSeeker, new BasicResume(), jReq, new NullPolicy());
+        Jobs jobs = service.getJobsApplied(jobSeeker);
+        assertEquals(1, jobs.size());
+        assertFalse(jobs.contains(ats));
+        assertTrue(jobs.contains(jReq));
     }
 
     @Test

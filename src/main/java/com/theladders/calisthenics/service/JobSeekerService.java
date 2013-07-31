@@ -37,10 +37,11 @@ public class JobSeekerService
         }
     }
 
-    public JobApplications getJobsSaved(JobSeeker jobSeeker)
+    public Jobs getJobsSaved(JobSeeker jobSeeker)
     {
         JobApplicationFilters filters = new JobApplicationFilters(new SavedJobApplicationFilter());
-        return filters.apply(appRepository.find(jobSeeker));
+        JobApplications applications = filters.apply(appRepository.find(jobSeeker));
+        return applications.jobs();
     }
 
     public JobApplication apply(JobSeeker jobSeeker,

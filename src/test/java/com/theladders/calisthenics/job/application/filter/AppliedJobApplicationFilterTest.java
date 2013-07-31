@@ -14,9 +14,9 @@ import static junit.framework.Assert.assertTrue;
  * Date: 7/31/13
  * Time: 3:54 PM
  */
-public class AppliedJobFilterTest
+public class AppliedJobApplicationFilterTest
 {
-    JobApplicationMatcher filter;
+    AppliedJobApplicationFilter filter;
 
     @Test
     public void testMatch() throws Exception
