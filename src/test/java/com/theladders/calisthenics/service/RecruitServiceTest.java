@@ -1,6 +1,6 @@
 package com.theladders.calisthenics.service;
 
-import com.theladders.calisthenics.actor.JobSeeker;
+import com.theladders.calisthenics.CalisthenicsTest;
 import com.theladders.calisthenics.actor.Recruiter;
 import com.theladders.calisthenics.job.ATS;
 import com.theladders.calisthenics.job.JReq;
@@ -26,7 +26,7 @@ import static org.mockito.Mockito.*;
  * Date: 7/29/13
  * Time: 10:55 AM
  */
-public class RecruitServiceTest
+public class RecruitServiceTest extends CalisthenicsTest
 {
     RecruitService service;
 
@@ -82,13 +82,12 @@ public class RecruitServiceTest
         Jobs jobs = new Jobs(jReq);
         JobApplications applications = new JobApplications();
 
-        JobSeeker seeker = new JobSeeker();
-        applications.add(new JobApplication(seeker, new JobApplicationDetails(jReq, new Date())));
+        applications.add(new JobApplication(jobSeeker, new JobApplicationDetails(jReq, new Date())));
 
         when(jobRepo.find(recruiter)).thenReturn(jobs);
         when(appRepo.find(jReq)).thenReturn(applications);
         assertEquals(1, service.getApplicants(recruiter).size());
-        assertTrue(service.getApplicants(recruiter).contains(seeker));
+        assertTrue(service.getApplicants(recruiter).contains(jobSeeker));
     }
 
     @Test
@@ -97,10 +96,9 @@ public class RecruitServiceTest
         Job ats = new ATS();
         Job jReq = new JReq();
         Jobs jobs = new Jobs(ats, jReq);
-        JobSeeker seeker = new JobSeeker();
 
-        JobApplications atsApplications = new JobApplications(new JobApplication(seeker, new JobApplicationDetails(ats, new Date())));
-        JobApplications jReqApplications = new JobApplications(new JobApplication(seeker, new JobApplicationDetails(jReq, new Date())));
+        JobApplications atsApplications = new JobApplications(new JobApplication(jobSeeker, new JobApplicationDetails(ats, new Date())));
+        JobApplications jReqApplications = new JobApplications(new JobApplication(jobSeeker, new JobApplicationDetails(jReq, new Date())));
 
         when(jobRepo.find(recruiter)).thenReturn(jobs);
         when(appRepo.find(ats)).thenReturn(atsApplications);
@@ -108,7 +106,6 @@ public class RecruitServiceTest
         assertEquals(2, service.getJobApplications(recruiter).size());
         assertEquals(1, service.getApplicants(recruiter).size()); //same job seeker applied for ATS and jReq jobs
 
-        assertTrue(service.getApplicants(recruiter).contains(seeker));
+        assertTrue(service.getApplicants(recruiter).contains(jobSeeker));
     }
-
 }

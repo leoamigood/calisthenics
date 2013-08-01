@@ -1,6 +1,6 @@
 package com.theladders.calisthenics.service;
 
-import com.theladders.calisthenics.actor.JobSeeker;
+import com.theladders.calisthenics.CalisthenicsTest;
 import com.theladders.calisthenics.job.ATS;
 import com.theladders.calisthenics.job.JReq;
 import com.theladders.calisthenics.job.Job;
@@ -15,7 +15,6 @@ import com.theladders.calisthenics.repo.InMemoryJobApplicationRepository;
 import com.theladders.calisthenics.repo.JobApplicationRepository;
 import com.theladders.calisthenics.resume.BasicResume;
 import com.theladders.calisthenics.resume.Resume;
-import junit.framework.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
@@ -23,9 +22,7 @@ import org.mockito.Mockito;
 import java.util.Date;
 
 import static junit.framework.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
 
 /**
@@ -33,10 +30,9 @@ import static org.mockito.Mockito.*;
  * Date: 7/30/13
  * Time: 12:45 PM
  */
-public class JobSeekerServiceTest
+public class JobSeekerServiceTest extends CalisthenicsTest
 {
     JobSeekerService service;
-    JobSeeker jobSeeker = new JobSeeker();
 
     JobApplicationRepository appRepo = Mockito.mock(JobApplicationRepository.class);
 

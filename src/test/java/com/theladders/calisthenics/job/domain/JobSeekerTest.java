@@ -1,6 +1,6 @@
 package com.theladders.calisthenics.job.domain;
 
-import com.theladders.calisthenics.actor.JobSeeker;
+import com.theladders.calisthenics.CalisthenicsTest;
 import com.theladders.calisthenics.resume.BasicResume;
 import com.theladders.calisthenics.resume.Resume;
 import org.junit.Before;
@@ -14,24 +14,22 @@ import static org.junit.Assert.assertTrue;
  * Date: 7/16/13
  * Time: 1:16 PM
  */
-public class JobSeekerTest {
-
+public class JobSeekerTest extends CalisthenicsTest
+{
     Resume resume;
-    JobSeeker seeker;
 
     @Before
     public void setUp() {
         resume = new BasicResume();
-        seeker = new JobSeeker();
     }
 
     @Test
     public void testIsOwner() throws Exception {
-        seeker.addResume(resume);
+        jobSeeker.addResume(resume);
 
-        assertTrue(seeker.isOwner(resume));
-        assertFalse(seeker.isOwner(new BasicResume()));
-        assertFalse(seeker.isOwner(null));
+        assertTrue(jobSeeker.isOwner(resume));
+        assertFalse(jobSeeker.isOwner(new BasicResume()));
+        assertFalse(jobSeeker.isOwner(null));
     }
 
 }

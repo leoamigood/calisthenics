@@ -1,5 +1,6 @@
 package com.theladders.calisthenics.job.application.filter;
 
+import com.theladders.calisthenics.CalisthenicsTest;
 import com.theladders.calisthenics.actor.JobSeeker;
 import com.theladders.calisthenics.job.ATS;
 import com.theladders.calisthenics.job.application.JobApplication;
@@ -17,24 +18,23 @@ import static org.junit.Assert.assertTrue;
  * Date: 7/17/13
  * Time: 9:57 AM
  */
-public class SameDayJobFilterTest
+public class SameDayJobFilterTest extends CalisthenicsTest
 {
     SameDayJobApplicationFilter filter;
 
     @Test
     public void testMatch() throws Exception
     {
-        JobSeeker seeker = new JobSeeker();
         JobApplicationDetails info = new JobApplicationDetails(new ATS(), getEarlierToday());
         filter = new SameDayJobApplicationFilter(new Date());
 
-        JobApplication application = new JobApplication(seeker, info);
+        JobApplication application = new JobApplication(jobSeeker, info);
         assertTrue(filter.match(application));
-        assertTrue(filter.match(new JobApplication(new JobSeeker(), info)));
+        assertTrue(filter.match(new JobApplication(new JobSeeker("Mary Smith"), info)));
         assertTrue(filter.match(new JobApplication(null, info)));
 
         JobApplicationDetails another = new JobApplicationDetails(new ATS(), getYesterdayDate());
-        assertFalse(filter.match(new JobApplication(seeker, another)));
+        assertFalse(filter.match(new JobApplication(jobSeeker, another)));
     }
 
     private Date getYesterdayDate()

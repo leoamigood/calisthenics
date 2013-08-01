@@ -1,5 +1,6 @@
 package com.theladders.calisthenics.job.policy;
 
+import com.theladders.calisthenics.CalisthenicsTest;
 import com.theladders.calisthenics.actor.JobSeeker;
 import com.theladders.calisthenics.job.ATS;
 import com.theladders.calisthenics.job.Job;
@@ -13,7 +14,7 @@ import org.junit.Test;
  * Date: 7/31/13
  * Time: 11:07 AM
  */
-public class ResumePolicyTest
+public class ResumePolicyTest extends CalisthenicsTest
 {
     ResumePolicy policy = new ResumePolicy();
 
@@ -21,7 +22,7 @@ public class ResumePolicyTest
     public void testMayApplyForJob() throws Exception
     {
         Resume resume = new BasicResume();
-        JobSeeker jobSeeker = new JobSeeker(resume);
+        JobSeeker jobSeeker = new JobSeeker("John Smith", resume);
         Job job = new ATS();
 
         Assert.assertNotNull(policy.getRestrictions(jobSeeker, resume, job));

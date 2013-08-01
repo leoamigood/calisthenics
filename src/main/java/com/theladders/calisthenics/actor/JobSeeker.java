@@ -10,12 +10,17 @@ import com.theladders.calisthenics.resume.Resumes;
  */
 public class JobSeeker
 {
+    private String name;
     private Resumes resumes = new Resumes();
 
-    public JobSeeker(){}
-
-    public JobSeeker(final Resume resume)
+    public JobSeeker(final String name)
     {
+        this.name = name;
+    }
+
+    public JobSeeker(final String name, final Resume resume)
+    {
+        this(name);
         addResume(resume);
     }
 
