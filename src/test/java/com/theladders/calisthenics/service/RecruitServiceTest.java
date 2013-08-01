@@ -33,7 +33,7 @@ public class RecruitServiceTest
     JobRepository jobRepo = Mockito.mock(JobRepository.class);
     JobApplicationRepository appRepo = Mockito.mock(JobApplicationRepository.class);
 
-    Recruiter recruiter = new Recruiter();
+    Recruiter recruiter = new Recruiter("John Smith");
 
     @Before
     public void setUp()
