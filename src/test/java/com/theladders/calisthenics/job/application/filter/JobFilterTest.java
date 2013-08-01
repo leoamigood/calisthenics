@@ -8,7 +8,6 @@ import com.theladders.calisthenics.job.application.JobApplicationDetails;
 import org.junit.Assert;
 import org.junit.Test;
 
-import java.util.Calendar;
 import java.util.Date;
 
 /**
@@ -43,12 +42,5 @@ public class JobFilterTest extends CalisthenicsTest
     {
         JobApplication anotherATS = new JobApplication(jobSeeker, new JobApplicationDetails(new ATS(), new Date()));
         Assert.assertFalse(filter.match(anotherATS));
-    }
-
-    private Date getYesterdayDate()
-    {
-        Calendar calendar = Calendar.getInstance();
-        calendar.add(Calendar.DATE, -1);
-        return calendar.getTime();
     }
 }

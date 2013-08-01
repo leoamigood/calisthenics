@@ -11,6 +11,6 @@ import com.theladders.calisthenics.job.Jobs;
  */
 public interface JobRepository
 {
-    public boolean addJob(final Recruiter recruiter, final Job job);
+    public boolean save(final Recruiter recruiter, final Job job);
     public Jobs find(final Recruiter recruiter);
 }

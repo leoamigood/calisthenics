@@ -30,7 +30,7 @@ public class RecruitService
     public Jobs postJobs(final Recruiter recruiter, final Jobs jobs)
     {
         for (Job job : jobs) {
-            jobRepository.addJob(recruiter, job);
+            jobRepository.save(recruiter, job);
         }
 
         return jobs;
@@ -46,7 +46,7 @@ public class RecruitService
 
         JobApplications combined = new JobApplications();
         for (Job job: jobs) {
-            JobApplications applications = appRepository.find(job);
+            JobApplications applications = appRepository.findByJob(job);
             combined.addAll(applications);
         }
 

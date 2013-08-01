@@ -37,5 +37,4 @@ public class Recruiter {
     {
         return name;
     }
-
 }

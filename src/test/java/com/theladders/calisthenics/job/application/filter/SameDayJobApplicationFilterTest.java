@@ -7,7 +7,6 @@ import com.theladders.calisthenics.job.application.JobApplication;
 import com.theladders.calisthenics.job.application.JobApplicationDetails;
 import org.junit.Test;
 
-import java.util.Calendar;
 import java.util.Date;
 
 import static org.junit.Assert.assertFalse;
@@ -18,7 +17,7 @@ import static org.junit.Assert.assertTrue;
  * Date: 7/17/13
  * Time: 9:57 AM
  */
-public class SameDayJobFilterTest extends CalisthenicsTest
+public class SameDayJobApplicationFilterTest extends CalisthenicsTest
 {
     SameDayJobApplicationFilter filter;
 
@@ -35,20 +34,6 @@ public class SameDayJobFilterTest extends CalisthenicsTest
 
         JobApplicationDetails another = new JobApplicationDetails(new ATS(), getYesterdayDate());
         assertFalse(filter.match(new JobApplication(jobSeeker, another)));
-    }
-
-    private Date getYesterdayDate()
-    {
-        Calendar calendar = Calendar.getInstance();
-        calendar.add(Calendar.DATE, -1);
-        return calendar.getTime();
-    }
-
-    private Date getEarlierToday()
-    {
-        Calendar calendar = Calendar.getInstance();
-        calendar.add(Calendar.MILLISECOND, -1);
-        return calendar.getTime();
     }
 }
 

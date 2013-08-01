@@ -1,11 +1,12 @@
-package com.theladders.calisthenics.job;
+package com.theladders.calisthenics.repo;
 
 import com.theladders.calisthenics.CalisthenicsTest;
+import com.theladders.calisthenics.job.ATS;
+import com.theladders.calisthenics.job.JReq;
+import com.theladders.calisthenics.job.Job;
 import com.theladders.calisthenics.job.application.JobApplicationDetails;
 import com.theladders.calisthenics.job.application.JobApplications;
 import com.theladders.calisthenics.job.application.SavedJobApplication;
-import com.theladders.calisthenics.repo.InMemoryJobApplicationRepository;
-import com.theladders.calisthenics.repo.JobApplicationRepository;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -32,9 +33,9 @@ public class InMemoryJobApplicationRepositoryTest extends CalisthenicsTest
     @Test
     public void testEmptyRepository()
     {
-        assertNotNull(repository.find(new ATS()));
-        assertEquals(0, repository.find(new ATS()).size());
-        assertEquals(0, repository.find(jobSeeker).size());
+        assertNotNull(repository.findByJob(new ATS()));
+        assertEquals(0, repository.findByJob(new ATS()).size());
+        assertEquals(0, repository.findByJobSeeker(jobSeeker).size());
     }
 
     @Test
@@ -45,10 +46,10 @@ public class InMemoryJobApplicationRepositoryTest extends CalisthenicsTest
         repository.save(new SavedJobApplication(jobSeeker, new JobApplicationDetails(ats, new Date())));
         repository.save(new SavedJobApplication(jobSeeker, new JobApplicationDetails(jReq, new Date())));
 
-        JobApplications atsApplications = repository.find(ats);
+        JobApplications atsApplications = repository.findByJob(ats);
         assertEquals(1, atsApplications.size());
 
-        JobApplications jReqApplications = repository.find(jReq);
+        JobApplications jReqApplications = repository.findByJob(jReq);
         assertEquals(1, jReqApplications.size());
     }
 
@@ -57,7 +58,7 @@ public class InMemoryJobApplicationRepositoryTest extends CalisthenicsTest
     {
         repository.save(new SavedJobApplication(jobSeeker, new JobApplicationDetails(new ATS(), new Date())));
         repository.save(new SavedJobApplication(jobSeeker, new JobApplicationDetails(new JReq(), new Date())));
-        JobApplications applications = repository.find(jobSeeker);
+        JobApplications applications = repository.findByJobSeeker(jobSeeker);
         assertEquals(2, applications.size());
     }
 
@@ -67,7 +68,7 @@ public class InMemoryJobApplicationRepositoryTest extends CalisthenicsTest
         repository.save(new SavedJobApplication(jobSeeker, new JobApplicationDetails(new ATS(), new Date())));
         repository.save(new SavedJobApplication(jobSeeker, new JobApplicationDetails(new JReq(), new Date())));
 
-        JobApplications applications = repository.find(jobSeeker);
+        JobApplications applications = repository.findByJobSeeker(jobSeeker);
         assertEquals(2, applications.size());
     }
 

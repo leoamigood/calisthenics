@@ -6,9 +6,11 @@ import com.theladders.calisthenics.job.application.JobApplication;
 import com.theladders.calisthenics.job.application.JobApplications;
 import com.theladders.calisthenics.job.application.filter.JobApplicationFilters;
 import com.theladders.calisthenics.job.application.filter.JobFilter;
+import com.theladders.calisthenics.job.application.filter.SameDayJobApplicationFilter;
 import org.apache.commons.collections.Factory;
 import org.apache.commons.collections.map.LazyMap;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -34,10 +36,25 @@ public class InMemoryJobApplicationRepository implements JobApplicationRepositor
     }
 
     @Override
-    public JobApplications find(final Job job)
+    public JobApplications findByJob(final Job job)
     {
-        JobApplicationFilters filters = new JobApplicationFilters(new JobFilter(job));
+        return filter(new JobApplicationFilters(new JobFilter(job)));
+    }
 
+    @Override
+    public JobApplications findByJobSeeker(final JobSeeker jobSeeker)
+    {
+        return data.get(jobSeeker);
+    }
+
+    @Override
+    public JobApplications findByDate(Date date)
+    {
+        return filter(new JobApplicationFilters(new SameDayJobApplicationFilter(date)));
+    }
+
+    private JobApplications filter(JobApplicationFilters filters)
+    {
         JobApplications found = new JobApplications();
         for (JobApplications applications: data.values()) {
             found.addAll(filters.apply(applications));
@@ -47,14 +64,8 @@ public class InMemoryJobApplicationRepository implements JobApplicationRepositor
     }
 
     @Override
-    public JobApplications find(final JobSeeker jobSeeker)
-    {
-        return data.get(jobSeeker);
-    }
-
-    @Override
     public void save(final JobApplication application)
     {
-        data.get(application.applicant()).addAll(new JobApplications(application));
+        data.get(application.applicant()).add(application);
     }
 }

@@ -33,7 +33,7 @@ public class JobSeekerService
     {
         JobApplicationFilters filters = new JobApplicationFilters(new JobFilter(job));
 
-        JobApplications applications = filters.apply(appRepository.find(jobSeeker));
+        JobApplications applications = filters.apply(appRepository.findByJobSeeker(jobSeeker));
         if (applications.isEmpty()) {
             JobApplicationDetails details = new JobApplicationDetails(job, new Date());
             appRepository.save(new SavedJobApplication(jobSeeker, details));
@@ -43,7 +43,7 @@ public class JobSeekerService
     public Jobs getJobsSaved(final JobSeeker jobSeeker)
     {
         JobApplicationFilters filters = new JobApplicationFilters(new SavedJobApplicationFilter());
-        JobApplications applications = filters.apply(appRepository.find(jobSeeker));
+        JobApplications applications = filters.apply(appRepository.findByJobSeeker(jobSeeker));
         return applications.jobs();
     }
 
@@ -64,7 +64,12 @@ public class JobSeekerService
     public Jobs getJobsApplied(final JobSeeker jobSeeker)
     {
         JobApplicationFilters filters = new JobApplicationFilters(new AppliedJobApplicationFilter());
-        return filters.apply(appRepository.find(jobSeeker)).jobs();
+        return filters.apply(appRepository.findByJobSeeker(jobSeeker)).jobs();
+    }
+
+    public JobApplications getJobApplications(Date date)
+    {
+        return appRepository.findByDate(date);
     }
 
 }

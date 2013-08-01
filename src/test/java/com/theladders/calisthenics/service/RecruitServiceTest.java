@@ -48,7 +48,7 @@ public class RecruitServiceTest extends CalisthenicsTest
         Jobs jobs = new Jobs(job);
         Jobs posted = service.postJobs(recruiter, jobs);
 
-        verify(jobRepo, times(1)).addJob(recruiter, job);
+        verify(jobRepo, times(1)).save(recruiter, job);
 
         assertEquals(1, posted.size());
     }
@@ -61,9 +61,9 @@ public class RecruitServiceTest extends CalisthenicsTest
         Jobs jobs = new Jobs(ats, jReq);
         Jobs posted = service.postJobs(recruiter, jobs);
 
-        verify(jobRepo, times(1)).addJob(recruiter, ats);
-        verify(jobRepo, times(1)).addJob(recruiter, jReq);
-        verify(jobRepo, times(0)).addJob(recruiter, new ATS());
+        verify(jobRepo, times(1)).save(recruiter, ats);
+        verify(jobRepo, times(1)).save(recruiter, jReq);
+        verify(jobRepo, times(0)).save(recruiter, new ATS());
 
         assertEquals(2, posted.size());
     }
@@ -85,7 +85,7 @@ public class RecruitServiceTest extends CalisthenicsTest
         applications.add(new JobApplication(jobSeeker, new JobApplicationDetails(jReq, new Date())));
 
         when(jobRepo.find(recruiter)).thenReturn(jobs);
-        when(appRepo.find(jReq)).thenReturn(applications);
+        when(appRepo.findByJob(jReq)).thenReturn(applications);
         assertEquals(1, service.getApplicants(recruiter).size());
         assertTrue(service.getApplicants(recruiter).contains(jobSeeker));
     }
@@ -101,8 +101,8 @@ public class RecruitServiceTest extends CalisthenicsTest
         JobApplications jReqApplications = new JobApplications(new JobApplication(jobSeeker, new JobApplicationDetails(jReq, new Date())));
 
         when(jobRepo.find(recruiter)).thenReturn(jobs);
-        when(appRepo.find(ats)).thenReturn(atsApplications);
-        when(appRepo.find(jReq)).thenReturn(jReqApplications);
+        when(appRepo.findByJob(ats)).thenReturn(atsApplications);
+        when(appRepo.findByJob(jReq)).thenReturn(jReqApplications);
         assertEquals(2, service.getJobApplications(recruiter).size());
         assertEquals(1, service.getApplicants(recruiter).size()); //same job seeker applied for ATS and jReq jobs
 

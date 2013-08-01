@@ -31,9 +31,9 @@ public class Jobs implements Iterable<Job>
         return jobs.size();
     }
 
-    public void add(final Job job)
+    public boolean add(final Job job)
     {
-        jobs.add(job);
+        return jobs.add(job);
     }
 
     public boolean contains(final Job job)

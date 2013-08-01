@@ -107,7 +107,7 @@ public class JobApplicationFiltersTest extends CalisthenicsTest
         assertTrue(applied.contains(application));
     }
 
-    private Date getYesterdayDate() {
+    public Date getYesterdayDate() {
         Calendar calendar = Calendar.getInstance();
         calendar.add(Calendar.DATE, -1);
         return calendar.getTime();

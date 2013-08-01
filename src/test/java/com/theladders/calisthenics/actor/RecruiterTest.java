@@ -1,6 +1,5 @@
 package com.theladders.calisthenics.actor;
 
-import junit.framework.Assert;
 import org.junit.Test;
 
 import static junit.framework.Assert.*;
@@ -27,5 +26,4 @@ public class RecruiterTest
         assertFalse(recruiter1.id().equals(recruiter2.id()));
         assertTrue(recruiter1.name().equals(recruiter2.name()));
     }
-
 }

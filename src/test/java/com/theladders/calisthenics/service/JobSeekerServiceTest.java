@@ -5,10 +5,7 @@ import com.theladders.calisthenics.job.ATS;
 import com.theladders.calisthenics.job.JReq;
 import com.theladders.calisthenics.job.Job;
 import com.theladders.calisthenics.job.Jobs;
-import com.theladders.calisthenics.job.application.JobApplication;
-import com.theladders.calisthenics.job.application.JobApplicationDetails;
-import com.theladders.calisthenics.job.application.JobApplications;
-import com.theladders.calisthenics.job.application.SavedJobApplication;
+import com.theladders.calisthenics.job.application.*;
 import com.theladders.calisthenics.job.policy.NullPolicy;
 import com.theladders.calisthenics.job.policy.ResumePolicy;
 import com.theladders.calisthenics.repo.InMemoryJobApplicationRepository;
@@ -22,7 +19,8 @@ import org.mockito.Mockito;
 import java.util.Date;
 
 import static junit.framework.Assert.assertEquals;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
 import static org.mockito.Mockito.*;
 
 /**
@@ -47,7 +45,7 @@ public class JobSeekerServiceTest extends CalisthenicsTest
     {
         Job job = new ATS();
         JobApplicationDetails details = new JobApplicationDetails(job, new Date());
-        when(appRepo.find(jobSeeker)).thenReturn(new JobApplications());
+        when(appRepo.findByJobSeeker(jobSeeker)).thenReturn(new JobApplications());
 
         service.saveJobApplication(jobSeeker, job);
         verify(appRepo, times(1)).save(any(SavedJobApplication.class));
@@ -59,7 +57,7 @@ public class JobSeekerServiceTest extends CalisthenicsTest
     {
         Job job = new ATS();
         JobApplicationDetails details = new JobApplicationDetails(job, new Date());
-        when(appRepo.find(jobSeeker)).thenReturn(new JobApplications(new JobApplication(jobSeeker, details)));
+        when(appRepo.findByJobSeeker(jobSeeker)).thenReturn(new JobApplications(new JobApplication(jobSeeker, details)));
 
         service.saveJobApplication(jobSeeker, job);
         verify(appRepo, times(0)).save(any(SavedJobApplication.class));
@@ -74,7 +72,7 @@ public class JobSeekerServiceTest extends CalisthenicsTest
         service.saveJobApplication(jobSeeker, ats);
         Jobs jobs = service.getJobsSaved(jobSeeker);
         assertEquals(1, jobs.size());
-        assertTrue(jobs.contains(ats));
+        org.junit.Assert.assertTrue(jobs.contains(ats));
         assertFalse(jobs.contains(jReq));
     }
 
@@ -88,7 +86,7 @@ public class JobSeekerServiceTest extends CalisthenicsTest
         Jobs jobs = service.getJobsApplied(jobSeeker);
         assertEquals(1, jobs.size());
         assertFalse(jobs.contains(ats));
-        assertTrue(jobs.contains(jReq));
+        org.junit.Assert.assertTrue(jobs.contains(jReq));
     }
 
     @Test
@@ -99,7 +97,7 @@ public class JobSeekerServiceTest extends CalisthenicsTest
         JobApplication application = service.apply(jobSeeker, resume, new ATS(), new ResumePolicy());
 
         assertNotNull(application);
-        assertTrue(application.status().isAccepted());
+        org.junit.Assert.assertTrue(application.status().isAccepted());
         assertFalse(application.status().isSaved());
     }
 
@@ -111,7 +109,7 @@ public class JobSeekerServiceTest extends CalisthenicsTest
         JobApplication application = service.apply(jobSeeker, resume, new JReq(), new ResumePolicy());
 
         assertNotNull(application);
-        assertTrue(application.status().isAccepted());
+        org.junit.Assert.assertTrue(application.status().isAccepted());
         assertFalse(application.status().isSaved());
     }
 
@@ -142,6 +140,37 @@ public class JobSeekerServiceTest extends CalisthenicsTest
         assertNotNull(application);
         assertFalse(application.status().isAccepted());
         assertFalse(application.status().isSaved());
+    }
+
+    @Test
+    public void testGetJobApplications()
+    {
+        setUpRepositoryWithMultiDatedApplications();
+
+        BasicResume resume = new BasicResume();
+        jobSeeker.addResume(resume);
+
+        assertEquals(1, service.getJobApplications(getYesterdayDate()).size());
+        assertEquals(1, service.getJobApplications(new Date()).size());
+        assertEquals(0, service.getJobApplications(getTwoDaysAgoDate()).size());
+    }
+
+    private void setUpRepositoryWithMultiDatedApplications()
+    {
+        InMemoryJobApplicationRepository repository = new InMemoryJobApplicationRepository();
+
+        CompletedJobApplication yesterdaysApplication = mock(CompletedJobApplication.class);
+        CompletedJobApplication todayApplication = mock(CompletedJobApplication.class);
+
+        when(yesterdaysApplication.date()).thenReturn(getYesterdayDate());
+        when(todayApplication.date()).thenReturn(getEarlierToday());
+        when(yesterdaysApplication.applicant()).thenReturn(jobSeeker);
+        when(todayApplication.applicant()).thenReturn(jobSeeker);
+
+        repository.save(yesterdaysApplication);
+        repository.save(todayApplication);
+
+        service = new JobSeekerService(repository);
     }
 
 }

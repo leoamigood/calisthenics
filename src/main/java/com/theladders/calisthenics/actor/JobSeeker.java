@@ -14,7 +14,18 @@ public class JobSeeker
 {
     private Id id;
     private String name;
+
     private Resumes resumes = new Resumes();
+
+    public static class Id implements Identifier
+    {
+        private Integer id;
+
+        public Id(Integer id)
+        {
+            this.id = id;
+        }
+    }
 
     public JobSeeker(final String name)
     {
@@ -28,16 +39,6 @@ public class JobSeeker
         addResume(resume);
     }
 
-    public static class Id implements Identifier
-    {
-        private Integer id;
-
-        public Id(Integer id)
-        {
-            this.id = id;
-        }
-    }
-
     public boolean addResume(final Resume resume)
     {
         return resumes.add(resume);
@@ -48,5 +49,13 @@ public class JobSeeker
         return resumes.contains(resume);
     }
 
+    public Id id()
+    {
+        return id;
+    }
 
+    public String name()
+    {
+        return name;
+    }
 }
