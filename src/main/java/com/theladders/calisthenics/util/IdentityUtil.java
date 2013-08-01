@@ -1,7 +1,5 @@
 package com.theladders.calisthenics.util;
 
-import com.theladders.calisthenics.actor.Recruiter;
-
 import java.lang.reflect.Constructor;
 import java.util.Random;
 
@@ -14,11 +12,11 @@ public class IdentityUtil
 {
     private static Random random = new Random();
 
-    public static Identifier getId(Class<? extends Identifier> idClass)
+    public static <T extends Identifier> T getId(Class<T> idClass)
     {
         try {
             Constructor<? extends Identifier> constructor = idClass.getConstructor(Integer.class);
-            return constructor.newInstance(random.nextInt());
+            return (T) constructor.newInstance(random.nextInt());
         } catch (Exception e) {
             throw new RuntimeException("Unable to create identifier for " + idClass.getName(), e);
         }

@@ -2,6 +2,8 @@ package com.theladders.calisthenics.actor;
 
 import com.theladders.calisthenics.resume.Resume;
 import com.theladders.calisthenics.resume.Resumes;
+import com.theladders.calisthenics.util.Identifier;
+import com.theladders.calisthenics.util.IdentityUtil;
 
 /**
  * User: Leo Amigood <lamigud@theladders.com>
@@ -10,11 +12,13 @@ import com.theladders.calisthenics.resume.Resumes;
  */
 public class JobSeeker
 {
+    private Id id;
     private String name;
     private Resumes resumes = new Resumes();
 
     public JobSeeker(final String name)
     {
+        this.id = IdentityUtil.getId(JobSeeker.Id.class);
         this.name = name;
     }
 
@@ -22,6 +26,16 @@ public class JobSeeker
     {
         this(name);
         addResume(resume);
+    }
+
+    public static class Id implements Identifier
+    {
+        private Integer id;
+
+        public Id(Integer id)
+        {
+            this.id = id;
+        }
     }
 
     public boolean addResume(final Resume resume)

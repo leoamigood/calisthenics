@@ -24,7 +24,7 @@ public class Recruiter {
 
     public Recruiter(String name)
     {
-        this.id = (Recruiter.Id) IdentityUtil.getId(Recruiter.Id.class);
+        this.id = IdentityUtil.getId(Recruiter.Id.class);
         this.name = name;
     }
 
