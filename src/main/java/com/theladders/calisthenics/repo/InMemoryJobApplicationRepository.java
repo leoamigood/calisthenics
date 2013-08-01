@@ -1,12 +1,11 @@
 package com.theladders.calisthenics.repo;
 
 import com.theladders.calisthenics.actor.JobSeeker;
-import com.theladders.calisthenics.job.application.filter.JobFilter;
-import com.theladders.calisthenics.job.application.filter.JobApplicationFilters;
-import com.theladders.calisthenics.job.application.filter.SavedJobApplicationFilter;
 import com.theladders.calisthenics.job.Job;
 import com.theladders.calisthenics.job.application.JobApplication;
 import com.theladders.calisthenics.job.application.JobApplications;
+import com.theladders.calisthenics.job.application.filter.JobApplicationFilters;
+import com.theladders.calisthenics.job.application.filter.JobFilter;
 import org.apache.commons.collections.Factory;
 import org.apache.commons.collections.map.LazyMap;
 
@@ -22,7 +21,7 @@ public class InMemoryJobApplicationRepository implements JobApplicationRepositor
 {
     private Map<JobSeeker, JobApplications> data = lazy(new HashMap<JobSeeker, JobApplications>());
 
-    private Map<JobSeeker, JobApplications> lazy(HashMap<JobSeeker, JobApplications> map)
+    private Map<JobSeeker, JobApplications> lazy(final HashMap<JobSeeker, JobApplications> map)
     {
         return LazyMap.decorate(map, new Factory()
         {

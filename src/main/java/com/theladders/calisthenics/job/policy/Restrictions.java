@@ -17,7 +17,7 @@ public class Restrictions
         return restrictions.isEmpty();
     }
 
-    public void add(Restriction restriction)
+    public void add(final Restriction restriction)
     {
         restrictions.add(restriction);
     }

@@ -12,7 +12,9 @@ import com.theladders.calisthenics.resume.Resume;
 public class NullPolicy implements JobPolicy
 {
     @Override
-    public Restrictions getRestrictions(JobSeeker jobSeeker, Resume resume, Job job)
+    public Restrictions getRestrictions(final JobSeeker jobSeeker,
+                                        final Resume resume,
+                                        final Job job)
     {
         return new Restrictions();
     }

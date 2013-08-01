@@ -1,6 +1,8 @@
 package com.theladders.calisthenics.job;
 
-import java.util.*;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.Set;
 
 /**
  * User: Leo Amigood <lamigud@theladders.com>
@@ -29,12 +31,12 @@ public class Jobs implements Iterable<Job>
         return jobs.size();
     }
 
-    public void add(Job job)
+    public void add(final Job job)
     {
         jobs.add(job);
     }
 
-    public boolean contains(Job job)
+    public boolean contains(final Job job)
     {
         return jobs.contains(job);
     }

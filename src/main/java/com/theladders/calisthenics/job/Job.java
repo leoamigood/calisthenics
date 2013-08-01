@@ -8,5 +8,5 @@ import com.theladders.calisthenics.resume.Resume;
  * Time: 5:23 PM
  */
 public abstract class Job {
-    public abstract boolean isCompliant(Resume resume);
+    public abstract boolean isCompliant(final Resume resume);
 }

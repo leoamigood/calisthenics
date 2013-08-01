@@ -9,7 +9,7 @@ import com.theladders.calisthenics.actor.JobSeeker;
  */
 public class SavedJobApplication extends JobApplication
 {
-    public SavedJobApplication(JobSeeker seeker, JobApplicationDetails info)
+    public SavedJobApplication(final JobSeeker seeker, final JobApplicationDetails info)
     {
         super(seeker, info);
     }

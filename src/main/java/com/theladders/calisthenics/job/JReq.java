@@ -10,7 +10,7 @@ import com.theladders.calisthenics.resume.Resume;
 public class JReq extends Job {
 
     @Override
-    public boolean isCompliant(Resume resume)
+    public boolean isCompliant(final Resume resume)
     {
         return resume != null;
     }

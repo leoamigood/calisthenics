@@ -12,8 +12,8 @@ import com.theladders.calisthenics.job.application.JobApplications;
  */
 public interface JobApplicationRepository
 {
-    public JobApplications find(Job job);
-    public JobApplications find(JobSeeker jobSeeker);
+    public JobApplications find(final Job job);
+    public JobApplications find(final JobSeeker jobSeeker);
 
-    public void save(JobApplication application);
+    public void save(final JobApplication application);
 }

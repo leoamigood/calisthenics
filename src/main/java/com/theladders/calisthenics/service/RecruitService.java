@@ -2,11 +2,11 @@ package com.theladders.calisthenics.service;
 
 import com.theladders.calisthenics.actor.JobSeekers;
 import com.theladders.calisthenics.actor.Recruiter;
-import com.theladders.calisthenics.job.application.filter.JobApplicationFilters;
 import com.theladders.calisthenics.job.Job;
 import com.theladders.calisthenics.job.Jobs;
 import com.theladders.calisthenics.job.application.JobApplication;
 import com.theladders.calisthenics.job.application.JobApplications;
+import com.theladders.calisthenics.job.application.filter.JobApplicationFilters;
 import com.theladders.calisthenics.repo.JobApplicationRepository;
 import com.theladders.calisthenics.repo.JobRepository;
 
@@ -21,7 +21,7 @@ public class RecruitService
     private JobRepository jobRepository;
     private JobApplicationRepository appRepository;
 
-    public RecruitService(JobRepository repository, JobApplicationRepository appRepository)
+    public RecruitService(final JobRepository repository, final JobApplicationRepository appRepository)
     {
         this.jobRepository = repository;
         this.appRepository = appRepository;
@@ -68,7 +68,7 @@ public class RecruitService
         return getJobSeekers(filters.apply(applications));
     }
 
-    private JobSeekers getJobSeekers(JobApplications applications)
+    private JobSeekers getJobSeekers(final JobApplications applications)
     {
         JobSeekers seekers = new JobSeekers();
         for (JobApplication application: applications) {

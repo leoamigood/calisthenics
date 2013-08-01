@@ -12,7 +12,7 @@ public class JobSeekers
 {
     private Set<JobSeeker> seekers = new LinkedHashSet<>();
 
-    public boolean add(JobSeeker seeker)
+    public boolean add(final JobSeeker seeker)
     {
         return seekers.add(seeker);
     }
@@ -22,7 +22,7 @@ public class JobSeekers
         return seekers.size();
     }
 
-    public boolean contains(JobSeeker seeker)
+    public boolean contains(final JobSeeker seeker)
     {
         return seekers.contains(seeker);
     }

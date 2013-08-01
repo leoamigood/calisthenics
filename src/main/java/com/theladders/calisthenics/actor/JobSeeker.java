@@ -14,17 +14,17 @@ public class JobSeeker
 
     public JobSeeker(){}
 
-    public JobSeeker(Resume resume)
+    public JobSeeker(final Resume resume)
     {
         addResume(resume);
     }
 
-    public boolean addResume(Resume resume)
+    public boolean addResume(final Resume resume)
     {
         return resumes.add(resume);
     }
 
-    public boolean isOwner(Resume resume)
+    public boolean isOwner(final Resume resume)
     {
         return resumes.contains(resume);
     }

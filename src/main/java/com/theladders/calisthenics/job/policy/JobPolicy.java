@@ -11,5 +11,5 @@ import com.theladders.calisthenics.resume.Resume;
  */
 public interface JobPolicy
 {
-    public Restrictions getRestrictions(JobSeeker jobSeeker, Resume resume, Job job);
+    public Restrictions getRestrictions(final JobSeeker jobSeeker, final Resume resume, final Job job);
 }
