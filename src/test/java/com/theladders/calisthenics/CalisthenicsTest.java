@@ -3,6 +3,7 @@ package com.theladders.calisthenics;
 import com.theladders.calisthenics.actor.JobSeeker;
 import com.theladders.calisthenics.actor.Recruiter;
 import com.theladders.calisthenics.job.ATS;
+import com.theladders.calisthenics.job.JReq;
 import com.theladders.calisthenics.job.Job;
 
 import java.util.Calendar;
@@ -16,7 +17,7 @@ import java.util.Date;
 public class CalisthenicsTest
 {
     public Job ats = new ATS("ATS job title");
-    public Job jReq = new ATS("ATS job title");
+    public Job jReq = new JReq("JReq job title");
     public JobSeeker jobSeeker = new JobSeeker("John Seeker");
     public Recruiter recruiter = new Recruiter("Paul Recruiter");
 

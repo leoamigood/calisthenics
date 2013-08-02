@@ -1,7 +1,10 @@
 package com.theladders.calisthenics.actor;
 
+import com.theladders.calisthenics.job.Job;
+import com.theladders.calisthenics.job.application.JobApplication;
 import com.theladders.calisthenics.resume.Resume;
 import com.theladders.calisthenics.resume.Resumes;
+import com.theladders.calisthenics.service.JobSeekerService;
 import com.theladders.calisthenics.util.Identifier;
 import com.theladders.calisthenics.util.IdentityUtil;
 
@@ -12,56 +15,64 @@ import com.theladders.calisthenics.util.IdentityUtil;
  */
 public class JobSeeker
 {
-    private Id id;
-    private String name;
+  private Id id;
+  private String name;
 
-    private Resumes resumes = new Resumes();
+  private Resumes resumes = new Resumes();
 
-    public static class Id implements Identifier
+  public static class Id implements Identifier
+  {
+    private Integer id;
+
+    public Id(Integer id)
     {
-        private Integer id;
-
-        public Id(Integer id)
-        {
-            this.id = id;
-        }
+      this.id = id;
     }
+  }
 
-    public JobSeeker(final String name)
-    {
-        this.id = IdentityUtil.getId(JobSeeker.Id.class);
-        this.name = name;
-    }
+  public JobSeeker(final String name)
+  {
+    this.id = IdentityUtil.getId(JobSeeker.Id.class);
+    this.name = name;
+  }
 
-    public JobSeeker(final String name, final Resume resume)
-    {
-        this(name);
-        addResume(resume);
-    }
+  public JobSeeker(final String name,
+                   final Resume resume)
+  {
+    this(name);
+    addResume(resume);
+  }
 
-    public boolean addResume(final Resume resume)
-    {
-        return resumes.add(resume);
-    }
+  public JobApplication applyTo(final Resume resume,
+                                final Job job,
+                                final JobSeekerService applier)
+  {
+    return applier.apply(this, resume, job);
+  }
 
-    public boolean isOwner(final Resume resume)
-    {
-        return resumes.contains(resume);
-    }
+  public boolean addResume(final Resume resume)
+  {
+    return resumes.add(resume);
+  }
 
-    public Id id()
-    {
-        return id;
-    }
+  public boolean isOwner(final Resume resume)
+  {
+    return resumes.contains(resume);
+  }
 
-    public String name()
-    {
-        return name;
-    }
+  public Id id()
+  {
+    return id;
+  }
 
-    @Override
-    public String toString()
-    {
-        return id.id + " " + name;
-    }
+  public String name()
+  {
+    return name;
+  }
+
+  @Override
+  public String toString()
+  {
+    return id.id + " " + name;
+  }
 }
