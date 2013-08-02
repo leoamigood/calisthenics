@@ -16,7 +16,7 @@ public class IdentityUtil
     {
         try {
             Constructor<? extends Identifier> constructor = idClass.getConstructor(Integer.class);
-            return (T) constructor.newInstance(random.nextInt());
+            return (T) constructor.newInstance(random.nextInt(Integer.MAX_VALUE));
         } catch (Exception e) {
             throw new RuntimeException("Unable to create identifier for " + idClass.getName(), e);
         }

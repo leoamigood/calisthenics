@@ -8,8 +8,8 @@ import com.theladders.calisthenics.job.Jobs;
 import com.theladders.calisthenics.job.application.*;
 import com.theladders.calisthenics.job.policy.NullPolicy;
 import com.theladders.calisthenics.job.policy.ResumePolicy;
-import com.theladders.calisthenics.repo.InMemoryJobApplicationRepository;
-import com.theladders.calisthenics.repo.JobApplicationRepository;
+import com.theladders.calisthenics.dao.InMemoryJobApplicationRepository;
+import com.theladders.calisthenics.dao.JobApplicationRepository;
 import com.theladders.calisthenics.resume.BasicResume;
 import com.theladders.calisthenics.resume.Resume;
 import org.junit.Before;
@@ -43,11 +43,10 @@ public class JobSeekerServiceTest extends CalisthenicsTest
     @Test
     public void testSaveNonExistingJobApplication() throws Exception
     {
-        Job job = new ATS();
-        JobApplicationDetails details = new JobApplicationDetails(job, new Date());
+        JobApplicationDetails details = new JobApplicationDetails(ats, new Date());
         when(appRepo.findByJobSeeker(jobSeeker)).thenReturn(new JobApplications());
 
-        service.saveJobApplication(jobSeeker, job);
+        service.saveJobApplication(jobSeeker, ats);
         verify(appRepo, times(1)).save(any(SavedJobApplication.class));
 
     }
@@ -55,19 +54,16 @@ public class JobSeekerServiceTest extends CalisthenicsTest
     @Test
     public void testSaveExistingJobApplication() throws Exception
     {
-        Job job = new ATS();
-        JobApplicationDetails details = new JobApplicationDetails(job, new Date());
+        JobApplicationDetails details = new JobApplicationDetails(ats, new Date());
         when(appRepo.findByJobSeeker(jobSeeker)).thenReturn(new JobApplications(new JobApplication(jobSeeker, details)));
 
-        service.saveJobApplication(jobSeeker, job);
+        service.saveJobApplication(jobSeeker, ats);
         verify(appRepo, times(0)).save(any(SavedJobApplication.class));
     }
 
     @Test
     public void testListJobsSaved()
     {
-        Job ats = new ATS();
-        Job jReq = new JReq();
         service = new JobSeekerService(new InMemoryJobApplicationRepository());
         service.saveJobApplication(jobSeeker, ats);
         Jobs jobs = service.getJobsSaved(jobSeeker);
@@ -79,8 +75,6 @@ public class JobSeekerServiceTest extends CalisthenicsTest
     @Test
     public void testListJobsApplied()
     {
-        Job ats = new ATS();
-        Job jReq = new JReq();
         service = new JobSeekerService(new InMemoryJobApplicationRepository());
         service.apply(jobSeeker, new BasicResume(), jReq, new NullPolicy());
         Jobs jobs = service.getJobsApplied(jobSeeker);
@@ -94,7 +88,7 @@ public class JobSeekerServiceTest extends CalisthenicsTest
     {
         BasicResume resume = new BasicResume();
         jobSeeker.addResume(resume);
-        JobApplication application = service.apply(jobSeeker, resume, new ATS(), new ResumePolicy());
+        JobApplication application = service.apply(jobSeeker, resume, ats, new ResumePolicy());
 
         assertNotNull(application);
         org.junit.Assert.assertTrue(application.status().isAccepted());
@@ -106,7 +100,7 @@ public class JobSeekerServiceTest extends CalisthenicsTest
     {
         BasicResume resume = new BasicResume();
         jobSeeker.addResume(resume);
-        JobApplication application = service.apply(jobSeeker, resume, new JReq(), new ResumePolicy());
+        JobApplication application = service.apply(jobSeeker, resume, jReq, new ResumePolicy());
 
         assertNotNull(application);
         org.junit.Assert.assertTrue(application.status().isAccepted());
@@ -116,7 +110,7 @@ public class JobSeekerServiceTest extends CalisthenicsTest
     @Test
     public void testDeniedApply()
     {
-        JobApplication application = service.apply(jobSeeker, new BasicResume(), new ATS(), new ResumePolicy());
+        JobApplication application = service.apply(jobSeeker, new BasicResume(), ats, new ResumePolicy());
         assertNotNull(application);
         assertFalse(application.status().isAccepted());
         assertFalse(application.status().isSaved());
@@ -135,7 +129,7 @@ public class JobSeekerServiceTest extends CalisthenicsTest
         };
 
         jobSeeker.addResume(incomplete);
-        JobApplication application = service.apply(jobSeeker, incomplete, new JReq(), new ResumePolicy());
+        JobApplication application = service.apply(jobSeeker, incomplete, jReq, new ResumePolicy());
 
         assertNotNull(application);
         assertFalse(application.status().isAccepted());

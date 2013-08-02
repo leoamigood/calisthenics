@@ -1,8 +1,13 @@
 package com.theladders.calisthenics.util;
 
+import org.hamcrest.Matcher;
+import org.junit.Assert;
 import org.junit.Test;
+import org.mockito.internal.matchers.GreaterThan;
 
 import static junit.framework.Assert.assertNotNull;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.junit.Assert.assertTrue;
 
 /**
  * User: Leo Amigood <lamigud@theladders.com>
@@ -26,7 +31,7 @@ public class IdentityUtilTest
     @Test
     public void testGetId() throws Exception
     {
-        assertNotNull(IdentityUtil.getId(Id.class));
+        Assert.assertNotNull(IdentityUtil.getId(Id.class));
     }
 
     @Test (expected = RuntimeException.class)

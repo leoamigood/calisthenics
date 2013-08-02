@@ -22,7 +22,7 @@ public class JobApplicationFiltersTest extends CalisthenicsTest
 {
     Date now = new Date();
 
-    JobApplication application = new JobApplication(jobSeeker, new JobApplicationDetails(new ATS(), now));
+    JobApplication application = new JobApplication(jobSeeker, new JobApplicationDetails(ats, now));
 
     @Test
     public void testMatchByJobSeeker() throws Exception
@@ -34,7 +34,7 @@ public class JobApplicationFiltersTest extends CalisthenicsTest
     @Test
     public void testDoesNotMatchByJobSeeker() throws Exception
     {
-        JobApplication different = new JobApplication(new JobSeeker("Mary Smith"), new JobApplicationDetails(new ATS(), now));
+        JobApplication different = new JobApplication(new JobSeeker("Mary Smith"), new JobApplicationDetails(ats, now));
 
         JobApplicationFilters filters = new JobApplicationFilters(new SeekerJobApplicationFilter(jobSeeker));
         assertFalse(filters.match(different));
@@ -88,13 +88,13 @@ public class JobApplicationFiltersTest extends CalisthenicsTest
     @Test
     public void testMatchAllByJobSeeker() throws Exception
     {
-        JobApplication additional = new JobApplication(jobSeeker, new JobApplicationDetails(new ATS(), now));
+        JobApplication additional = new JobApplication(jobSeeker, new JobApplicationDetails(ats, now));
 
         JobApplicationFilters filters = new JobApplicationFilters(new SeekerJobApplicationFilter(jobSeeker));
         JobApplications applications = new JobApplications(application, additional);
         assertTrue(filters.matchAll(applications));
 
-        applications.add(new JobApplication(new JobSeeker("Mary Smith"), new JobApplicationDetails(new ATS(), now)));
+        applications.add(new JobApplication(new JobSeeker("Mary Smith"), new JobApplicationDetails(ats, now)));
         assertFalse(filters.matchAll(applications));
     }
 

@@ -17,30 +17,29 @@ import java.util.Date;
  */
 public class JobFilterTest extends CalisthenicsTest
 {
-    Job job = new ATS();
-    JobFilter filter = new JobFilter(job);
+    JobFilter filter = new JobFilter(ats);
 
     @Test
     public void testMatchMultipleApplicationsBySameJob() throws Exception
     {
-        JobApplication application1 = new JobApplication(jobSeeker, new JobApplicationDetails(job, new Date()));
+        JobApplication application1 = new JobApplication(jobSeeker, new JobApplicationDetails(ats, new Date()));
         Assert.assertTrue(filter.match(application1));
 
-        JobApplication application2 = new JobApplication(jobSeeker, new JobApplicationDetails(job, new Date()));
+        JobApplication application2 = new JobApplication(jobSeeker, new JobApplicationDetails(ats, new Date()));
         Assert.assertTrue(filter.match(application2));
     }
 
     @Test
     public void testMatchDifferentDay() throws Exception
     {
-        JobApplication anotherDate = new JobApplication(jobSeeker, new JobApplicationDetails(job, getYesterdayDate()));
+        JobApplication anotherDate = new JobApplication(jobSeeker, new JobApplicationDetails(ats, getYesterdayDate()));
         Assert.assertTrue(filter.match(anotherDate));
     }
 
     @Test
     public void testDoesNotMatchDifferentJob() throws Exception
     {
-        JobApplication anotherATS = new JobApplication(jobSeeker, new JobApplicationDetails(new ATS(), new Date()));
+        JobApplication anotherATS = new JobApplication(jobSeeker, new JobApplicationDetails(new ATS("Another ATS job"), new Date()));
         Assert.assertFalse(filter.match(anotherATS));
     }
 }

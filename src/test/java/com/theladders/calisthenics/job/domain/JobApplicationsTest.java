@@ -22,7 +22,7 @@ public class JobApplicationsTest extends CalisthenicsTest
     public void testAdd() throws Exception
     {
         JobApplications applications = new JobApplications();
-        JobApplicationDetails details = new JobApplicationDetails(new ATS(), new Date());
+        JobApplicationDetails details = new JobApplicationDetails(ats, new Date());
         applications.add(new JobApplication(jobSeeker, details));
         assertEquals(1, applications.size());
     }
@@ -30,7 +30,7 @@ public class JobApplicationsTest extends CalisthenicsTest
     @Test
     public void testAddMultiple() throws Exception
     {
-        JobApplicationDetails details = new JobApplicationDetails(new ATS(), new Date());
+        JobApplicationDetails details = new JobApplicationDetails(ats, new Date());
         JobApplications applications = new JobApplications(new JobApplication(jobSeeker, details));
         applications.addAll(new JobApplications(new JobApplication(jobSeeker, details)));
         assertEquals(2, applications.size());
@@ -39,7 +39,7 @@ public class JobApplicationsTest extends CalisthenicsTest
     @Test
     public void testAddMultipleNull() throws Exception
     {
-        JobApplicationDetails details = new JobApplicationDetails(new ATS(), new Date());
+        JobApplicationDetails details = new JobApplicationDetails(ats, new Date());
         JobApplications applications = new JobApplications(new JobApplication(jobSeeker, details));
         applications.addAll(new JobApplications(new JobApplication(jobSeeker, details)));
         applications.addAll(null);
@@ -49,7 +49,7 @@ public class JobApplicationsTest extends CalisthenicsTest
     @Test
     public void testIsEmpty() throws Exception
     {
-        JobApplicationDetails details = new JobApplicationDetails(new ATS(), new Date());
+        JobApplicationDetails details = new JobApplicationDetails(ats, new Date());
         JobApplications applications = new JobApplications();
         assertTrue(applications.isEmpty());
 
@@ -66,7 +66,7 @@ public class JobApplicationsTest extends CalisthenicsTest
         JobApplications applications = new JobApplications();
         assertEquals(0, applications.jobs().size());
 
-        JobApplicationDetails details = new JobApplicationDetails(new ATS(), new Date());
+        JobApplicationDetails details = new JobApplicationDetails(ats, new Date());
         applications.add(new JobApplication(jobSeeker, details));
         assertEquals(1, applications.jobs().size());
     }

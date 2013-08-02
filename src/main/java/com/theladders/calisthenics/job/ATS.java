@@ -9,6 +9,11 @@ import com.theladders.calisthenics.resume.Resume;
  */
 public class ATS extends Job {
 
+    public ATS(String title)
+    {
+        super(title);
+    }
+
     @Override
     public boolean isCompliant(final Resume resume)
     {

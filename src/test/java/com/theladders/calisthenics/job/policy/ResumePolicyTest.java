@@ -23,8 +23,7 @@ public class ResumePolicyTest extends CalisthenicsTest
     {
         Resume resume = new BasicResume();
         JobSeeker jobSeeker = new JobSeeker("John Smith", resume);
-        Job job = new ATS();
 
-        Assert.assertNotNull(policy.getRestrictions(jobSeeker, resume, job));
+        Assert.assertNotNull(policy.getRestrictions(jobSeeker, resume, ats));
     }
 }

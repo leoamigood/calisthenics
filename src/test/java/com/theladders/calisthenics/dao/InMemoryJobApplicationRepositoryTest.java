@@ -1,4 +1,4 @@
-package com.theladders.calisthenics.repo;
+package com.theladders.calisthenics.dao;
 
 import com.theladders.calisthenics.CalisthenicsTest;
 import com.theladders.calisthenics.job.ATS;
@@ -33,16 +33,14 @@ public class InMemoryJobApplicationRepositoryTest extends CalisthenicsTest
     @Test
     public void testEmptyRepository()
     {
-        assertNotNull(repository.findByJob(new ATS()));
-        assertEquals(0, repository.findByJob(new ATS()).size());
+        assertNotNull(repository.findByJob(ats));
+        assertEquals(0, repository.findByJob(ats).size());
         assertEquals(0, repository.findByJobSeeker(jobSeeker).size());
     }
 
     @Test
     public void testFindByJob() throws Exception
     {
-        Job ats = new ATS();
-        Job jReq = new JReq();
         repository.save(new SavedJobApplication(jobSeeker, new JobApplicationDetails(ats, new Date())));
         repository.save(new SavedJobApplication(jobSeeker, new JobApplicationDetails(jReq, new Date())));
 
@@ -56,8 +54,8 @@ public class InMemoryJobApplicationRepositoryTest extends CalisthenicsTest
     @Test
     public void testFindByJobSeeker() throws Exception
     {
-        repository.save(new SavedJobApplication(jobSeeker, new JobApplicationDetails(new ATS(), new Date())));
-        repository.save(new SavedJobApplication(jobSeeker, new JobApplicationDetails(new JReq(), new Date())));
+        repository.save(new SavedJobApplication(jobSeeker, new JobApplicationDetails(ats, new Date())));
+        repository.save(new SavedJobApplication(jobSeeker, new JobApplicationDetails(jReq, new Date())));
         JobApplications applications = repository.findByJobSeeker(jobSeeker);
         assertEquals(2, applications.size());
     }
@@ -65,8 +63,8 @@ public class InMemoryJobApplicationRepositoryTest extends CalisthenicsTest
     @Test
     public void testFindSaved() throws Exception
     {
-        repository.save(new SavedJobApplication(jobSeeker, new JobApplicationDetails(new ATS(), new Date())));
-        repository.save(new SavedJobApplication(jobSeeker, new JobApplicationDetails(new JReq(), new Date())));
+        repository.save(new SavedJobApplication(jobSeeker, new JobApplicationDetails(ats, new Date())));
+        repository.save(new SavedJobApplication(jobSeeker, new JobApplicationDetails(jReq, new Date())));
 
         JobApplications applications = repository.findByJobSeeker(jobSeeker);
         assertEquals(2, applications.size());

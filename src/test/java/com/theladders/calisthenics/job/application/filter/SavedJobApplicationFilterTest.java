@@ -24,7 +24,7 @@ public class SavedJobApplicationFilterTest extends CalisthenicsTest
     @Test
     public void testMatch() throws Exception
     {
-        JobApplicationDetails info = new JobApplicationDetails(new ATS(), new Date());
+        JobApplicationDetails info = new JobApplicationDetails(ats, new Date());
         filter = new SavedJobApplicationFilter();
 
         JobApplication application = new JobApplication(jobSeeker, info);

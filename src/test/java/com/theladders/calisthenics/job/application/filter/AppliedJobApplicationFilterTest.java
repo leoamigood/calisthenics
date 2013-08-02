@@ -23,7 +23,7 @@ public class AppliedJobApplicationFilterTest extends CalisthenicsTest
     {
         filter = new AppliedJobApplicationFilter();
 
-        JobApplication application = new CompletedJobApplication(jobSeeker, new BasicResume(), new ATS());
+        JobApplication application = new CompletedJobApplication(jobSeeker, new BasicResume(), ats);
         assertTrue(filter.match(application));
     }
 }

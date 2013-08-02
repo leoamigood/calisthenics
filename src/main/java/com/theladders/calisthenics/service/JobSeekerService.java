@@ -10,7 +10,7 @@ import com.theladders.calisthenics.job.application.filter.JobFilter;
 import com.theladders.calisthenics.job.application.filter.SavedJobApplicationFilter;
 import com.theladders.calisthenics.job.policy.JobPolicy;
 import com.theladders.calisthenics.job.policy.Restrictions;
-import com.theladders.calisthenics.repo.JobApplicationRepository;
+import com.theladders.calisthenics.dao.JobApplicationRepository;
 import com.theladders.calisthenics.resume.Resume;
 
 import java.util.Date;

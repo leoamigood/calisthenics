@@ -1,4 +1,4 @@
-package com.theladders.calisthenics.repo;
+package com.theladders.calisthenics.dao;
 
 import com.theladders.calisthenics.CalisthenicsTest;
 import com.theladders.calisthenics.actor.Recruiter;
@@ -27,9 +27,9 @@ public class InMemoryJobRepositoryTest extends CalisthenicsTest
     @Test
     public void testSaveAndFindJob() throws Exception
     {
-        repository.save(recruiter, new ATS());
-        repository.save(new Recruiter("Barbara Recruiter"), new ATS());
-        repository.save(recruiter, new JReq());
+        repository.save(recruiter, ats);
+        repository.save(new Recruiter("Barbara Recruiter"), ats);
+        repository.save(recruiter, jReq);
 
         assertEquals(2, repository.find(recruiter).size());
     }

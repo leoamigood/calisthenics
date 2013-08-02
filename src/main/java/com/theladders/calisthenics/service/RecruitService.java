@@ -7,8 +7,8 @@ import com.theladders.calisthenics.job.Jobs;
 import com.theladders.calisthenics.job.application.JobApplication;
 import com.theladders.calisthenics.job.application.JobApplications;
 import com.theladders.calisthenics.job.application.filter.JobApplicationFilters;
-import com.theladders.calisthenics.repo.JobApplicationRepository;
-import com.theladders.calisthenics.repo.JobRepository;
+import com.theladders.calisthenics.dao.JobApplicationRepository;
+import com.theladders.calisthenics.dao.JobRepository;
 
 /**
  * User: Leo Amigood <lamigud@theladders.com>

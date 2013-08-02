@@ -58,4 +58,10 @@ public class JobSeeker
     {
         return name;
     }
+
+    @Override
+    public String toString()
+    {
+        return id.id + " " + name;
+    }
 }

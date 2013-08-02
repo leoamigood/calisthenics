@@ -1,4 +1,4 @@
-package com.theladders.calisthenics.repo;
+package com.theladders.calisthenics.dao;
 
 import com.theladders.calisthenics.actor.Recruiter;
 import com.theladders.calisthenics.job.Job;

@@ -9,8 +9,8 @@ import com.theladders.calisthenics.job.Jobs;
 import com.theladders.calisthenics.job.application.JobApplication;
 import com.theladders.calisthenics.job.application.JobApplicationDetails;
 import com.theladders.calisthenics.job.application.JobApplications;
-import com.theladders.calisthenics.repo.JobApplicationRepository;
-import com.theladders.calisthenics.repo.JobRepository;
+import com.theladders.calisthenics.dao.JobApplicationRepository;
+import com.theladders.calisthenics.dao.JobRepository;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
@@ -44,11 +44,10 @@ public class RecruitServiceTest extends CalisthenicsTest
     @Test
     public void testPostOneJob() throws Exception
     {
-        Job job = new ATS();
-        Jobs jobs = new Jobs(job);
+        Jobs jobs = new Jobs(ats);
         Jobs posted = service.postJobs(recruiter, jobs);
 
-        verify(jobRepo, times(1)).save(recruiter, job);
+        verify(jobRepo, times(1)).save(recruiter, ats);
 
         assertEquals(1, posted.size());
     }
@@ -56,14 +55,12 @@ public class RecruitServiceTest extends CalisthenicsTest
     @Test
     public void testPostMultipleJobs() throws Exception
     {
-        Job ats = new ATS();
-        Job jReq = new JReq();
         Jobs jobs = new Jobs(ats, jReq);
         Jobs posted = service.postJobs(recruiter, jobs);
 
         verify(jobRepo, times(1)).save(recruiter, ats);
         verify(jobRepo, times(1)).save(recruiter, jReq);
-        verify(jobRepo, times(0)).save(recruiter, new ATS());
+        verify(jobRepo, times(0)).save(recruiter, new ATS("Another ATS job"));
 
         assertEquals(2, posted.size());
     }
@@ -78,7 +75,6 @@ public class RecruitServiceTest extends CalisthenicsTest
     @Test
     public void testGetOneJobApplicants()
     {
-        Job jReq = new JReq();
         Jobs jobs = new Jobs(jReq);
         JobApplications applications = new JobApplications();
 
@@ -93,8 +89,6 @@ public class RecruitServiceTest extends CalisthenicsTest
     @Test
     public void testGetMultipleJobsApplicants()
     {
-        Job ats = new ATS();
-        Job jReq = new JReq();
         Jobs jobs = new Jobs(ats, jReq);
 
         JobApplications atsApplications = new JobApplications(new JobApplication(jobSeeker, new JobApplicationDetails(ats, new Date())));

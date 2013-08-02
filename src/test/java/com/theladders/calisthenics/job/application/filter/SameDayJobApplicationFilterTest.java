@@ -24,7 +24,7 @@ public class SameDayJobApplicationFilterTest extends CalisthenicsTest
     @Test
     public void testMatch() throws Exception
     {
-        JobApplicationDetails info = new JobApplicationDetails(new ATS(), getEarlierToday());
+        JobApplicationDetails info = new JobApplicationDetails(ats, getEarlierToday());
         filter = new SameDayJobApplicationFilter(new Date());
 
         JobApplication application = new JobApplication(jobSeeker, info);
@@ -32,7 +32,7 @@ public class SameDayJobApplicationFilterTest extends CalisthenicsTest
         assertTrue(filter.match(new JobApplication(new JobSeeker("Mary Smith"), info)));
         assertTrue(filter.match(new JobApplication(null, info)));
 
-        JobApplicationDetails another = new JobApplicationDetails(new ATS(), getYesterdayDate());
+        JobApplicationDetails another = new JobApplicationDetails(ats, getYesterdayDate());
         assertFalse(filter.match(new JobApplication(jobSeeker, another)));
     }
 }

@@ -1,0 +1,23 @@
+package com.theladders.calisthenics.report;
+
+import com.theladders.calisthenics.job.application.JobApplications;
+
+import java.io.IOException;
+import java.io.Writer;
+
+/**
+ * User: Leo Amigood <lamigud@theladders.com>
+ * Date: 8/1/13
+ * Time: 4:23 PM
+ */
+public abstract class ReportFormatter
+{
+    protected Writer writer;
+
+    public ReportFormatter(final Writer writer)
+    {
+        this.writer = writer;
+    }
+
+    public abstract void write(final JobApplications applications) throws IOException;
+}

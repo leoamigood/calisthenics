@@ -2,6 +2,7 @@ package com.theladders.calisthenics.job;
 
 import com.theladders.calisthenics.resume.Resume;
 import com.theladders.calisthenics.util.Identifier;
+import com.theladders.calisthenics.util.IdentityUtil;
 
 /**
  * User: Leo Amigood <lamigud@theladders.com>
@@ -23,6 +24,12 @@ public abstract class Job
         }
     }
 
+    public Job(final String title)
+    {
+        this.id = IdentityUtil.getId(Id.class);
+        this.title = title;
+    }
+
     public Id id ()
     {
         return id;
@@ -34,4 +41,10 @@ public abstract class Job
     }
 
     public abstract boolean isCompliant(final Resume resume);
+
+    @Override
+    public String toString()
+    {
+        return id.id + " " + title;
+    }
 }

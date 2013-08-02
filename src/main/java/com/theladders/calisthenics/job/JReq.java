@@ -9,6 +9,11 @@ import com.theladders.calisthenics.resume.Resume;
  */
 public class JReq extends Job {
 
+    public JReq(String title)
+    {
+        super(title);
+    }
+
     @Override
     public boolean isCompliant(final Resume resume)
     {
