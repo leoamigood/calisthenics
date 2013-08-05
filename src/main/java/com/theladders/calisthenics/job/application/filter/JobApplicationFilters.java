@@ -24,8 +24,6 @@ public class JobApplicationFilters implements JobApplicationMatcher
     @Override
     public boolean match(final JobApplication application)
     {
-        if (application == null) throw new NullPointerException();
-
         for (JobApplicationMatcher filter : filters) {
             if (!filter.match(application)) return false;
         }
