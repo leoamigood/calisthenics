@@ -2,8 +2,6 @@ package com.theladders.calisthenics.job.policy;
 
 import com.theladders.calisthenics.CalisthenicsTest;
 import com.theladders.calisthenics.actor.JobSeeker;
-import com.theladders.calisthenics.job.ATS;
-import com.theladders.calisthenics.job.Job;
 import com.theladders.calisthenics.resume.BasicResume;
 import com.theladders.calisthenics.resume.Resume;
 import org.junit.Assert;
@@ -24,6 +22,6 @@ public class ResumePolicyTest extends CalisthenicsTest
         Resume resume = new BasicResume();
         JobSeeker jobSeeker = new JobSeeker("John Smith", resume);
 
-        Assert.assertNotNull(policy.getRestrictions(jobSeeker, resume, ats));
+        Assert.assertNotNull(policy.restrictBy(jobSeeker, resume, ats));
     }
 }

@@ -1,9 +1,7 @@
-package com.theladders.calisthenics.dao;
+package com.theladders.calisthenics.job.application;
 
 import com.theladders.calisthenics.actor.JobSeeker;
 import com.theladders.calisthenics.job.Job;
-import com.theladders.calisthenics.job.application.JobApplication;
-import com.theladders.calisthenics.job.application.JobApplications;
 import com.theladders.calisthenics.job.application.filter.JobApplicationFilters;
 import com.theladders.calisthenics.job.application.filter.JobFilter;
 import com.theladders.calisthenics.job.application.filter.SameDayJobApplicationFilter;

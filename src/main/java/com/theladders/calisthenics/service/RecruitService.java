@@ -3,12 +3,12 @@ package com.theladders.calisthenics.service;
 import com.theladders.calisthenics.actor.JobSeekers;
 import com.theladders.calisthenics.actor.Recruiter;
 import com.theladders.calisthenics.job.Job;
+import com.theladders.calisthenics.job.JobRepository;
 import com.theladders.calisthenics.job.Jobs;
 import com.theladders.calisthenics.job.application.JobApplication;
+import com.theladders.calisthenics.job.application.JobApplicationRepository;
 import com.theladders.calisthenics.job.application.JobApplications;
 import com.theladders.calisthenics.job.application.filter.JobApplicationFilters;
-import com.theladders.calisthenics.dao.JobApplicationRepository;
-import com.theladders.calisthenics.dao.JobRepository;
 
 /**
  * User: Leo Amigood <lamigud@theladders.com>
@@ -21,7 +21,8 @@ public class RecruitService
     private JobRepository jobRepository;
     private JobApplicationRepository appRepository;
 
-    public RecruitService(final JobRepository repository, final JobApplicationRepository appRepository)
+    public RecruitService(final JobRepository repository,
+                          final JobApplicationRepository appRepository)
     {
         this.jobRepository = repository;
         this.appRepository = appRepository;
@@ -36,11 +37,11 @@ public class RecruitService
         return jobs;
     }
 
-    public Jobs getPostedJobs(final Recruiter recruiter) {
+    public Jobs jobsPostedBy(final Recruiter recruiter) {
         return jobRepository.find(recruiter);
     }
 
-    public JobApplications getJobApplications(final Recruiter recruiter)
+    public JobApplications jobsApplicationsBy(final Recruiter recruiter)
     {
         Jobs jobs = jobRepository.find(recruiter);
 
@@ -53,22 +54,23 @@ public class RecruitService
         return combined;
     }
 
-    public JobSeekers getApplicants(final Recruiter recruiter) {
-        return getApplicants(recruiter, null);
+    public JobSeekers applicantsBy(final Recruiter recruiter) {
+        return applicantsBy(recruiter, null);
     }
 
-    public JobSeekers getApplicants(final Recruiter recruiter, final JobApplicationFilters filters)
+    public JobSeekers applicantsBy(final Recruiter recruiter,
+                                   final JobApplicationFilters filters)
     {
-        JobApplications applications = getJobApplications(recruiter);
+        JobApplications applications = jobsApplicationsBy(recruiter);
 
         if (filters == null) {
-            return getJobSeekers(applications);
+            return jobSeekersBy(applications);
         }
 
-        return getJobSeekers(filters.apply(applications));
+        return jobSeekersBy(filters.apply(applications));
     }
 
-    private JobSeekers getJobSeekers(final JobApplications applications)
+    private JobSeekers jobSeekersBy(final JobApplications applications)
     {
         JobSeekers seekers = new JobSeekers();
         for (JobApplication application: applications) {
@@ -77,6 +79,4 @@ public class RecruitService
 
         return seekers;
     }
-
-
 }

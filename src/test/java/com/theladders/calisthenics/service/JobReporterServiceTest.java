@@ -1,11 +1,14 @@
 package com.theladders.calisthenics.service;
 
+import com.theladders.calisthenics.job.application.JobApplications;
 import com.theladders.calisthenics.report.CSVJobReportFormatter;
-import org.junit.Ignore;
 import org.junit.Test;
 
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
+import java.io.IOException;
+import java.util.Date;
+
+import static org.mockito.Matchers.any;
+import static org.mockito.Mockito.*;
 
 /**
  * User: Leo Amigood <lamigud@theladders.com>
@@ -14,16 +17,19 @@ import static org.mockito.Mockito.verify;
  */
 public class JobReporterServiceTest
 {
-    JobReporterService service;
+  JobSeekerService jobSeekerService = mock(JobSeekerService.class);
+  JobReporterService jobReporterService = new JobReporterService(jobSeekerService);
 
-    @Test
-    @Ignore
-    public void testJobReportByDate()
-    {
-        CSVJobReportFormatter formatter = mock(CSVJobReportFormatter.class);
-//        service.report(formatter);
-//
-//        verify(formatter)
-    }
-    
+  @Test
+  public void testJobReportByDate() throws IOException
+  {
+    CSVJobReportFormatter formatter = mock(CSVJobReportFormatter.class);
+
+    Date date = new Date();
+    jobReporterService.report(formatter, date);
+
+    verify(jobSeekerService, times(1)).jobsAppliedBy(date);
+    verify(formatter, times(1)).write(any(JobApplications.class));
+  }
+
 }

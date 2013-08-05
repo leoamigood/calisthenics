@@ -1,14 +1,13 @@
 package com.theladders.calisthenics.service;
 
 import com.theladders.calisthenics.CalisthenicsTest;
-import com.theladders.calisthenics.dao.InMemoryJobApplicationRepository;
-import com.theladders.calisthenics.dao.JobApplicationRepository;
 import com.theladders.calisthenics.job.Jobs;
 import com.theladders.calisthenics.job.application.*;
-import com.theladders.calisthenics.job.policy.NullPolicy;
+import com.theladders.calisthenics.job.policy.JobApplicationPolicy;
 import com.theladders.calisthenics.job.policy.ResumePolicy;
 import com.theladders.calisthenics.resume.BasicResume;
 import com.theladders.calisthenics.resume.Resume;
+import com.theladders.confident.Maybe;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
@@ -16,8 +15,7 @@ import org.mockito.Mockito;
 import java.util.Date;
 
 import static junit.framework.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
 
 /**
@@ -34,7 +32,7 @@ public class JobSeekerServiceTest extends CalisthenicsTest
     @Before
     public void setUp()
     {
-        service = new JobSeekerService(appRepo, new ResumePolicy());
+        service = new JobSeekerService(appRepo, Maybe.<JobApplicationPolicy>just(new ResumePolicy()));
     }
 
     @Test
@@ -61,23 +59,23 @@ public class JobSeekerServiceTest extends CalisthenicsTest
     @Test
     public void testListJobsSaved()
     {
-        service = new JobSeekerService(new InMemoryJobApplicationRepository(), new ResumePolicy());
+        service = new JobSeekerService(new InMemoryJobApplicationRepository(), Maybe.<JobApplicationPolicy>just(new ResumePolicy()));
         service.saveJobApplication(jobSeeker, ats);
         Jobs jobs = service.getJobsSaved(jobSeeker);
         assertEquals(1, jobs.size());
-        org.junit.Assert.assertTrue(jobs.contains(ats));
+        assertTrue(jobs.contains(ats));
         assertFalse(jobs.contains(jReq));
     }
 
     @Test
     public void testListJobsApplied()
     {
-        service = new JobSeekerService(new InMemoryJobApplicationRepository(), new NullPolicy());
+        service = new JobSeekerService(new InMemoryJobApplicationRepository(), Maybe.<JobApplicationPolicy>nothing());
         service.apply(jobSeeker, new BasicResume(), jReq);
-        Jobs jobs = service.getJobsApplied(jobSeeker);
+        Jobs jobs = service.jobsAppliedBy(jobSeeker);
         assertEquals(1, jobs.size());
         assertFalse(jobs.contains(ats));
-        org.junit.Assert.assertTrue(jobs.contains(jReq));
+        assertTrue(jobs.contains(jReq));
     }
 
     @Test
@@ -88,7 +86,7 @@ public class JobSeekerServiceTest extends CalisthenicsTest
         JobApplication application = service.apply(jobSeeker, resume, ats);
 
         assertNotNull(application);
-        org.junit.Assert.assertTrue(application.status().isAccepted());
+        assertTrue(application.status().isAccepted());
         assertFalse(application.status().isSaved());
     }
 
@@ -100,7 +98,7 @@ public class JobSeekerServiceTest extends CalisthenicsTest
         JobApplication application = service.apply(jobSeeker, resume, jReq);
 
         assertNotNull(application);
-        org.junit.Assert.assertTrue(application.status().isAccepted());
+        assertTrue(application.status().isAccepted());
         assertFalse(application.status().isSaved());
     }
 
@@ -141,9 +139,9 @@ public class JobSeekerServiceTest extends CalisthenicsTest
         BasicResume resume = new BasicResume();
         jobSeeker.addResume(resume);
 
-        assertEquals(1, service.getJobApplications(getYesterdayDate()).size());
-        assertEquals(1, service.getJobApplications(new Date()).size());
-        assertEquals(0, service.getJobApplications(getTwoDaysAgoDate()).size());
+        assertEquals(1, service.jobsAppliedBy(getYesterdayDate()).size());
+        assertEquals(1, service.jobsAppliedBy(new Date()).size());
+        assertEquals(0, service.jobsAppliedBy(getTwoDaysAgoDate()).size());
     }
 
     private void setUpRepositoryWithMultiDatedApplications()
@@ -161,7 +159,7 @@ public class JobSeekerServiceTest extends CalisthenicsTest
         repository.save(yesterdaysApplication);
         repository.save(todayApplication);
 
-        service = new JobSeekerService(repository, new ResumePolicy());
+        service = new JobSeekerService(repository, Maybe.<JobApplicationPolicy>just(new ResumePolicy()));
     }
 
 }

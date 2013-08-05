@@ -1,12 +1,6 @@
-package com.theladders.calisthenics.dao;
+package com.theladders.calisthenics.job.application;
 
 import com.theladders.calisthenics.CalisthenicsTest;
-import com.theladders.calisthenics.job.ATS;
-import com.theladders.calisthenics.job.JReq;
-import com.theladders.calisthenics.job.Job;
-import com.theladders.calisthenics.job.application.JobApplicationDetails;
-import com.theladders.calisthenics.job.application.JobApplications;
-import com.theladders.calisthenics.job.application.SavedJobApplication;
 import org.junit.Before;
 import org.junit.Test;
 

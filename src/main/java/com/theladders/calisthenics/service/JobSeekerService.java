@@ -1,7 +1,6 @@
 package com.theladders.calisthenics.service;
 
 import com.theladders.calisthenics.actor.JobSeeker;
-import com.theladders.calisthenics.dao.JobApplicationRepository;
 import com.theladders.calisthenics.job.Job;
 import com.theladders.calisthenics.job.Jobs;
 import com.theladders.calisthenics.job.application.*;
@@ -9,9 +8,10 @@ import com.theladders.calisthenics.job.application.filter.AppliedJobApplicationF
 import com.theladders.calisthenics.job.application.filter.JobApplicationFilters;
 import com.theladders.calisthenics.job.application.filter.JobFilter;
 import com.theladders.calisthenics.job.application.filter.SavedJobApplicationFilter;
-import com.theladders.calisthenics.job.policy.JobPolicy;
+import com.theladders.calisthenics.job.policy.JobApplicationPolicy;
 import com.theladders.calisthenics.job.policy.Restrictions;
 import com.theladders.calisthenics.resume.Resume;
+import com.theladders.confident.Maybe;
 
 import java.util.Date;
 
@@ -23,10 +23,10 @@ import java.util.Date;
 public class JobSeekerService
 {
   private JobApplicationRepository appRepository;
-  private JobPolicy policy;
+  private Maybe<JobApplicationPolicy> policy;
 
   public JobSeekerService(final JobApplicationRepository appRepository,
-                          final JobPolicy policy)
+                          final Maybe<JobApplicationPolicy> policy)
   {
     this.appRepository = appRepository;
     this.policy = policy;
@@ -55,22 +55,22 @@ public class JobSeekerService
                               final Resume resume,
                               final Job job)
   {
-    Restrictions restrictions = policy.getRestrictions(jobSeeker, resume, job);
-    if (restrictions.isNone()) {
+    Maybe<Restrictions> restrictions = policy.isSomething() ? policy.get().restrictBy(jobSeeker, resume, job) : Maybe.<Restrictions>nothing();
+    if (restrictions.isNothing()) {
       JobApplication application = new CompletedJobApplication(jobSeeker, resume, job);
       appRepository.save(application);
       return application;
     }
-    return new DeniedJobApplication(jobSeeker, resume, job, restrictions);
+    return new DeniedJobApplication(jobSeeker, resume, job, restrictions.get());
   }
 
-  public Jobs getJobsApplied(final JobSeeker jobSeeker)
+  public Jobs jobsAppliedBy(final JobSeeker jobSeeker)
   {
     JobApplicationFilters filters = new JobApplicationFilters(new AppliedJobApplicationFilter());
     return filters.apply(appRepository.findByJobSeeker(jobSeeker)).jobs();
   }
 
-  public JobApplications getJobApplications(Date date)
+  public JobApplications jobsAppliedBy(Date date)
   {
     return appRepository.findByDate(date);
   }

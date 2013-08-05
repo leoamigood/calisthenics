@@ -1,8 +1,6 @@
-package com.theladders.calisthenics.dao;
+package com.theladders.calisthenics.job;
 
 import com.theladders.calisthenics.actor.Recruiter;
-import com.theladders.calisthenics.job.Job;
-import com.theladders.calisthenics.job.Jobs;
 import org.apache.commons.collections.Factory;
 import org.apache.commons.collections.map.LazyMap;
 

@@ -1,9 +1,7 @@
-package com.theladders.calisthenics.dao;
+package com.theladders.calisthenics.job;
 
 import com.theladders.calisthenics.CalisthenicsTest;
 import com.theladders.calisthenics.actor.Recruiter;
-import com.theladders.calisthenics.job.ATS;
-import com.theladders.calisthenics.job.JReq;
 import org.junit.Before;
 import org.junit.Test;
 
