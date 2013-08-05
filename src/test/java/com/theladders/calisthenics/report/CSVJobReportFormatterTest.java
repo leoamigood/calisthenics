@@ -1,13 +1,11 @@
 package com.theladders.calisthenics.report;
 
 import com.theladders.calisthenics.CalisthenicsTest;
-import com.theladders.calisthenics.actor.JobSeeker;
-import com.theladders.calisthenics.job.ATS;
 import com.theladders.calisthenics.job.application.CompletedJobApplication;
 import com.theladders.calisthenics.job.application.JobApplication;
 import com.theladders.calisthenics.job.application.JobApplications;
 import com.theladders.calisthenics.resume.BasicResume;
-import junit.framework.Assert;
+import org.apache.commons.lang.StringUtils;
 import org.hamcrest.Matcher;
 import org.hamcrest.core.AllOf;
 import org.hamcrest.core.StringContains;
@@ -27,26 +25,27 @@ import static org.hamcrest.MatcherAssert.assertThat;
  */
 public class CSVJobReportFormatterTest extends CalisthenicsTest
 {
-    Writer writer;
-    CSVJobReportFormatter reporter;
+  Writer writer;
+  CSVJobReportFormatter reporter;
 
-    @Before
-    public void setUp()
-    {
-        writer = new StringWriter();
-        reporter = new CSVJobReportFormatter(writer);
-    }
+  @Before
+  public void setUp()
+  {
+    writer = new StringWriter();
+    reporter = new CSVJobReportFormatter(writer);
+  }
 
-    @Test
-    public void testReport() throws Exception
-    {
-        JobApplication application = new CompletedJobApplication(jobSeeker, new BasicResume(), ats);
-        JobApplications applications = new JobApplications(application);
-        reporter.write(applications);
+  @Test
+  public void testReport() throws Exception
+  {
+    JobApplication application = new CompletedJobApplication(jobSeeker, new BasicResume(), ats);
+    JobApplications applications = new JobApplications(application);
+    reporter.write(applications);
 
-        //"Fri Aug 02 09:51:56 EDT 2013,1775388622 John Seeker,285506194 ATS job title",
-        Matcher jobMatches = StringContains.containsString("ATS job title");
-        Matcher jobSeekerMatches = StringContains.containsString("John Seeker");
-        assertThat(writer.toString(), AllOf.allOf(jobSeekerMatches, jobMatches));
-    }
+    //"Fri Aug 02 09:51:56 EDT 2013,1775388622 John Seeker,285506194 ATS job title",
+    Matcher jobMatches = StringContains.containsString("ATS job title");
+    Matcher jobSeekerMatches = StringContains.containsString("John Seeker");
+    assertThat(writer.toString(), AllOf.allOf(jobSeekerMatches, jobMatches));
+    assertEquals(2, StringUtils.countMatches(writer.toString(), ","));
+  }
 }
