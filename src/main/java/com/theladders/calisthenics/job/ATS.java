@@ -1,6 +1,8 @@
 package com.theladders.calisthenics.job;
 
+import com.theladders.calisthenics.actor.Recruiter;
 import com.theladders.calisthenics.resume.Resume;
+import com.theladders.confident.Maybe;
 
 /**
  * User: Leo Amigood <lamigud@theladders.com>
@@ -9,13 +11,13 @@ import com.theladders.calisthenics.resume.Resume;
  */
 public class ATS extends Job {
 
-    public ATS(String title)
+    public ATS(String title, Recruiter recruiter)
     {
-        super(title);
+        super(title, recruiter);
     }
 
     @Override
-    public boolean isCompliant(final Resume resume)
+    public boolean canApplyWith(Maybe<Resume> resume)
     {
         return true;
     }

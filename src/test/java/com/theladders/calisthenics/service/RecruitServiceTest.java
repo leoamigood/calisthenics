@@ -58,7 +58,7 @@ public class RecruitServiceTest extends CalisthenicsTest
 
         verify(jobRepo, times(1)).save(recruiter, ats);
         verify(jobRepo, times(1)).save(recruiter, jReq);
-        verify(jobRepo, times(0)).save(recruiter, new ATS("Another ATS job"));
+        verify(jobRepo, times(0)).save(recruiter, new ATS("Another ATS job", recruiter));
 
         assertEquals(2, posted.size());
     }

@@ -18,8 +18,8 @@ public class JobApplication implements Reportable
   private JobSeeker jobSeeker;
   private JobApplicationDetails info;
 
-  public JobApplication(final JobSeeker jobSeeker,
-                        final JobApplicationDetails info)
+  public JobApplication(JobSeeker jobSeeker,
+                        JobApplicationDetails info)
   {
     this.jobSeeker = jobSeeker;
     this.info = info;
@@ -53,6 +53,7 @@ public class JobApplication implements Reportable
         add(date().toString());
         add(jobSeeker.toString());
         add(job().toString());
+        add(job().recruiter().toString());
       }
     }.iterator();
   }

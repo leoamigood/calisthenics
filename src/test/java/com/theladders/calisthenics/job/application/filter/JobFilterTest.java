@@ -2,7 +2,6 @@ package com.theladders.calisthenics.job.application.filter;
 
 import com.theladders.calisthenics.CalisthenicsTest;
 import com.theladders.calisthenics.job.ATS;
-import com.theladders.calisthenics.job.Job;
 import com.theladders.calisthenics.job.application.JobApplication;
 import com.theladders.calisthenics.job.application.JobApplicationDetails;
 import org.junit.Assert;
@@ -39,7 +38,7 @@ public class JobFilterTest extends CalisthenicsTest
     @Test
     public void testDoesNotMatchDifferentJob() throws Exception
     {
-        JobApplication anotherATS = new JobApplication(jobSeeker, new JobApplicationDetails(new ATS("Another ATS job"), new Date()));
+        JobApplication anotherATS = new JobApplication(jobSeeker, new JobApplicationDetails(new ATS("Another ATS job", recruiter), new Date()));
         Assert.assertFalse(filter.match(anotherATS));
     }
 }

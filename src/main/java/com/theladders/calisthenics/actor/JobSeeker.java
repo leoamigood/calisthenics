@@ -43,9 +43,9 @@ public class JobSeeker
     addResume(resume);
   }
 
-  public JobApplication applyTo(final Resume resume,
-                                final Job job,
-                                final JobSeekerService applier)
+  public JobApplication applyTo(Resume resume,
+                                Job job,
+                                JobSeekerService applier)
   {
     return applier.apply(this, resume, job);
   }
@@ -55,7 +55,7 @@ public class JobSeeker
     return resumes.add(resume);
   }
 
-  public boolean isOwner(final Resume resume)
+  public boolean isOwner(Resume resume)
   {
     return resumes.contains(resume);
   }

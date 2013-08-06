@@ -4,19 +4,16 @@ import com.theladders.calisthenics.CalisthenicsTest;
 import com.theladders.calisthenics.job.application.CompletedJobApplication;
 import com.theladders.calisthenics.job.application.JobApplication;
 import com.theladders.calisthenics.resume.BasicResume;
-import org.hamcrest.Matcher;
-import org.hamcrest.core.AllOf;
-import org.hamcrest.core.StringContains;
+import org.apache.commons.lang.StringUtils;
 import org.junit.Before;
 import org.junit.Test;
-import org.mockito.internal.matchers.Matches;
 
 import java.io.StringWriter;
 import java.io.Writer;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.hamcrest.MatcherAssert.assertThat;
+import static org.junit.Assert.assertEquals;
 
 /**
  * User: Leo Amigood <lamigud@theladders.com>
@@ -38,14 +35,12 @@ public class CSVJobReportFormatterTest extends CalisthenicsTest
   @Test
   public void testReport() throws Exception
   {
-    final JobApplication application = new CompletedJobApplication(jobSeeker, new BasicResume(), ats);
-    List<Reportable> applications = new ArrayList<Reportable>() {{ add(application); }};
+    final JobApplication atsApp = new CompletedJobApplication(jobSeeker, new BasicResume(), ats);
+    final JobApplication jReqApp = new CompletedJobApplication(jobSeeker, new BasicResume(), jReq);
+    List<Reportable> applications = new ArrayList<Reportable>() {{ add(atsApp); add(jReqApp); }};
     reporter.write(applications);
 
-    //"Fri Aug 02 09:51:56 EDT 2013,1775388622 John Seeker,285506194 ATS job title",
-    Matcher jobMatches = StringContains.containsString("ATS job title");
-    Matcher jobSeekerMatches = StringContains.containsString("John Seeker");
-    Matches regexp = new Matches(".*,\\d+.*,\\d+.*\\n");
-    assertThat(writer.toString(), AllOf.allOf(jobSeekerMatches, jobMatches, regexp));
+    assertEquals(2 * 3, StringUtils.countMatches(writer.toString(), ","));
+    assertEquals(2, StringUtils.countMatches(writer.toString(), "\n"));
   }
 }

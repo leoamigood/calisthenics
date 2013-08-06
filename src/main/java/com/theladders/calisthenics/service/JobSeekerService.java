@@ -25,15 +25,15 @@ public class JobSeekerService
   private JobApplicationRepository appRepository;
   private Maybe<JobApplicationPolicy> policy;
 
-  public JobSeekerService(final JobApplicationRepository appRepository,
-                          final Maybe<JobApplicationPolicy> policy)
+  public JobSeekerService(JobApplicationRepository appRepository,
+                          Maybe<JobApplicationPolicy> policy)
   {
     this.appRepository = appRepository;
     this.policy = policy;
   }
 
-  public void saveJobApplication(final JobSeeker jobSeeker,
-                                 final Job job)
+  public void saveJobApplication(JobSeeker jobSeeker,
+                                 Job job)
   {
     JobApplicationFilters filters = new JobApplicationFilters(new JobFilter(job));
 
@@ -44,18 +44,19 @@ public class JobSeekerService
     }
   }
 
-  public Jobs getJobsSaved(final JobSeeker jobSeeker)
+  public Jobs jobsSaved(final JobSeeker jobSeeker)
   {
     JobApplicationFilters filters = new JobApplicationFilters(new SavedJobApplicationFilter());
     JobApplications applications = filters.apply(appRepository.findByJobSeeker(jobSeeker));
     return applications.jobs();
   }
 
-  public JobApplication apply(final JobSeeker jobSeeker,
-                              final Resume resume,
-                              final Job job)
+  public JobApplication apply(JobSeeker jobSeeker,
+                              Resume resume,
+                              Job job)
   {
     Maybe<Restrictions> restrictions = policy.isSomething() ? policy.get().restrictBy(jobSeeker, resume, job) : Maybe.<Restrictions>nothing();
+
     if (restrictions.isNothing()) {
       JobApplication application = new CompletedJobApplication(jobSeeker, resume, job);
       appRepository.save(application);
@@ -64,7 +65,7 @@ public class JobSeekerService
     return new DeniedJobApplication(jobSeeker, resume, job, restrictions.get());
   }
 
-  public Jobs jobsAppliedBy(final JobSeeker jobSeeker)
+  public Jobs jobsAppliedBy(JobSeeker jobSeeker)
   {
     JobApplicationFilters filters = new JobApplicationFilters(new AppliedJobApplicationFilter());
     return filters.apply(appRepository.findByJobSeeker(jobSeeker)).jobs();

@@ -19,51 +19,51 @@ import java.util.Map;
  */
 public class InMemoryJobApplicationRepository implements JobApplicationRepository
 {
-    private Map<JobSeeker, JobApplications> data = lazy(new HashMap<JobSeeker, JobApplications>());
+  private Map<JobSeeker, JobApplications> data = lazy(new HashMap<JobSeeker, JobApplications>());
 
-    private Map<JobSeeker, JobApplications> lazy(final HashMap<JobSeeker, JobApplications> map)
+  private Map<JobSeeker, JobApplications> lazy(final HashMap<JobSeeker, JobApplications> map)
+  {
+    return LazyMap.decorate(map, new Factory()
     {
-        return LazyMap.decorate(map, new Factory()
-        {
-            @Override
-            public Object create()
-            {
-                return new JobApplications();
-            }
-        });
+      @Override
+      public Object create()
+      {
+        return new JobApplications();
+      }
+    });
+  }
+
+  @Override
+  public JobApplications findByJob(Job job)
+  {
+    return filter(new JobApplicationFilters(new JobFilter(job)));
+  }
+
+  @Override
+  public JobApplications findByJobSeeker(JobSeeker jobSeeker)
+  {
+    return data.get(jobSeeker);
+  }
+
+  @Override
+  public JobApplications findByDate(Date date)
+  {
+    return filter(new JobApplicationFilters(new SameDayJobApplicationFilter(date)));
+  }
+
+  private JobApplications filter(JobApplicationFilters filters)
+  {
+    JobApplications found = new JobApplications();
+    for (JobApplications applications : data.values()) {
+      found.addAll(filters.apply(applications));
     }
 
-    @Override
-    public JobApplications findByJob(final Job job)
-    {
-        return filter(new JobApplicationFilters(new JobFilter(job)));
-    }
+    return found;
+  }
 
-    @Override
-    public JobApplications findByJobSeeker(final JobSeeker jobSeeker)
-    {
-        return data.get(jobSeeker);
-    }
-
-    @Override
-    public JobApplications findByDate(Date date)
-    {
-        return filter(new JobApplicationFilters(new SameDayJobApplicationFilter(date)));
-    }
-
-    private JobApplications filter(JobApplicationFilters filters)
-    {
-        JobApplications found = new JobApplications();
-        for (JobApplications applications: data.values()) {
-            found.addAll(filters.apply(applications));
-        }
-
-        return found;
-    }
-
-    @Override
-    public void save(final JobApplication application)
-    {
-        data.get(application.applicant()).add(application);
-    }
+  @Override
+  public void save(JobApplication application)
+  {
+    data.get(application.applicant()).add(application);
+  }
 }

@@ -1,10 +1,6 @@
-package com.theladders.calisthenics.job.domain;
+package com.theladders.calisthenics.job.application;
 
 import com.theladders.calisthenics.CalisthenicsTest;
-import com.theladders.calisthenics.job.ATS;
-import com.theladders.calisthenics.job.application.JobApplication;
-import com.theladders.calisthenics.job.application.JobApplicationDetails;
-import com.theladders.calisthenics.job.application.JobApplications;
 import org.junit.Test;
 
 import java.util.Date;

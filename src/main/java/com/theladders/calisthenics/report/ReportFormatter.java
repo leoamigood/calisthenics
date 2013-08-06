@@ -12,7 +12,7 @@ public abstract class ReportFormatter
 {
     protected Writer writer;
 
-    public ReportFormatter(final Writer writer)
+    public ReportFormatter(Writer writer)
     {
         this.writer = writer;
     }

@@ -16,29 +16,30 @@ import java.util.Date;
  */
 public class CalisthenicsTest
 {
-    public Job ats = new ATS("ATS job title");
-    public Job jReq = new JReq("JReq job title");
-    public JobSeeker jobSeeker = new JobSeeker("John Seeker");
-    public Recruiter recruiter = new Recruiter("Paul Recruiter");
+  public JobSeeker jobSeeker = new JobSeeker("John Seeker");
+  public Recruiter recruiter = new Recruiter("Paul Recruiter");
 
-    public Date getYesterdayDate()
-    {
-        Calendar calendar = Calendar.getInstance();
-        calendar.add(Calendar.DATE, -1);
-        return calendar.getTime();
-    }
+  public Job ats = new ATS("ATS job title", recruiter);
+  public Job jReq = new JReq("JReq job title", recruiter);
 
-    public Date getTwoDaysAgoDate()
-    {
-        Calendar calendar = Calendar.getInstance();
-        calendar.add(Calendar.DATE, -2);
-        return calendar.getTime();
-    }
+  public Date getYesterdayDate()
+  {
+    Calendar calendar = Calendar.getInstance();
+    calendar.add(Calendar.DATE, -1);
+    return calendar.getTime();
+  }
 
-    public Date getEarlierToday()
-    {
-        Calendar calendar = Calendar.getInstance();
-        calendar.add(Calendar.MILLISECOND, -1);
-        return calendar.getTime();
-    }
+  public Date getTwoDaysAgoDate()
+  {
+    Calendar calendar = Calendar.getInstance();
+    calendar.add(Calendar.DATE, -2);
+    return calendar.getTime();
+  }
+
+  public Date getEarlierToday()
+  {
+    Calendar calendar = Calendar.getInstance();
+    calendar.add(Calendar.MILLISECOND, -1);
+    return calendar.getTime();
+  }
 }

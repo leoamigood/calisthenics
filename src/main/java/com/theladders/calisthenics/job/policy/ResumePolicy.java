@@ -13,9 +13,9 @@ import com.theladders.confident.Maybe;
 public class ResumePolicy implements JobApplicationPolicy
 {
   @Override
-  public Maybe<Restrictions> restrictBy(final JobSeeker jobSeeker,
-                                      final Resume resume,
-                                      final Job job)
+  public Maybe<Restrictions> restrictBy(JobSeeker jobSeeker,
+                                        Resume resume,
+                                        Job job)
   {
     Restrictions restrictions = new Restrictions();
     if (!resume.isCompleted()) {
@@ -26,7 +26,7 @@ public class ResumePolicy implements JobApplicationPolicy
       restrictions.add(new IncorrectResumeRestriction(resume));
     }
 
-    if (!job.isCompliant(resume)) {
+    if (!job.canApplyWith(Maybe.just(resume))) {
       restrictions.add(new IncompatibleResumeRestriction(job, resume));
     }
 

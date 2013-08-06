@@ -1,8 +1,10 @@
 package com.theladders.calisthenics.job;
 
+import com.theladders.calisthenics.actor.Recruiter;
 import com.theladders.calisthenics.resume.Resume;
 import com.theladders.calisthenics.util.Identifier;
 import com.theladders.calisthenics.util.IdentityUtil;
+import com.theladders.confident.Maybe;
 
 /**
  * User: Leo Amigood <lamigud@theladders.com>
@@ -11,40 +13,48 @@ import com.theladders.calisthenics.util.IdentityUtil;
  */
 public abstract class Job
 {
-    private Id id;
-    private String title;
+  private Id id;
+  private String title;
 
-    public static class Id implements Identifier
+  private Recruiter recruiter;
+
+  public static class Id implements Identifier
+  {
+    private Integer id;
+
+    public Id(Integer id)
     {
-        private Integer id;
-
-        public Id(Integer id)
-        {
-            this.id = id;
-        }
+      this.id = id;
     }
+  }
 
-    public Job(final String title)
-    {
-        this.id = IdentityUtil.getId(Id.class);
-        this.title = title;
-    }
+  public Job(String title, Recruiter recruiter)
+  {
+    this.id = IdentityUtil.getId(Id.class);
+    this.title = title;
+    this.recruiter = recruiter;
+  }
 
-    public Id id ()
-    {
-        return id;
-    }
+  public Id id()
+  {
+    return id;
+  }
 
-    public String title()
-    {
-        return title;
-    }
+  public String title()
+  {
+    return title;
+  }
 
-    public abstract boolean isCompliant(final Resume resume);
+  public Recruiter recruiter()
+  {
+    return recruiter;
+  }
 
-    @Override
-    public String toString()
-    {
-        return id.id + " " + title;
-    }
+  public abstract boolean canApplyWith(Maybe<Resume> resume);
+
+  @Override
+  public String toString()
+  {
+    return id.id + " " + title;
+  }
 }

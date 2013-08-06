@@ -27,8 +27,8 @@ public class JobReporterService
     this.jobSeekerService = service;
   }
 
-  public void reportJobSeekersBy(final ReportFormatter formatter,
-                                 final Date date) throws IOException
+  public void reportJobSeekersBy(ReportFormatter formatter,
+                                 Date date) throws IOException
   {
     JobApplications applications = jobSeekerService.jobsAppliedBy(date);
     formatter.write(format(applications));
@@ -44,8 +44,8 @@ public class JobReporterService
     return Collections.unmodifiableCollection(list);
   }
 
-  public void reportJobApplicationsWith(final CSVJobReportFormatter formatter,
-                                        final Aggregator aggregator) throws IOException
+  public void reportJobApplicationsWith(CSVJobReportFormatter formatter,
+                                        Aggregator aggregator) throws IOException
   {
     formatter.write(aggregator.report());
   }

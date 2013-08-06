@@ -61,7 +61,7 @@ public class JobSeekerServiceTest extends CalisthenicsTest
     {
         service = new JobSeekerService(new InMemoryJobApplicationRepository(), Maybe.<JobApplicationPolicy>just(new ResumePolicy()));
         service.saveJobApplication(jobSeeker, ats);
-        Jobs jobs = service.getJobsSaved(jobSeeker);
+        Jobs jobs = service.jobsSaved(jobSeeker);
         assertEquals(1, jobs.size());
         assertTrue(jobs.contains(ats));
         assertFalse(jobs.contains(jReq));
