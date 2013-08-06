@@ -25,7 +25,7 @@ public class ByJobAggregator implements Aggregator<Job, Integer>
   public Iterable<Reportable> report()
   {
     List<Reportable> report = new ArrayList<>();
-    for (final Map.Entry<Job, Integer> entry: aggregate().entrySet())
+    for (final Map.Entry<Job, Integer> entry: apply().entrySet())
     {
       report.add(toReportable(entry));
     }
@@ -51,7 +51,7 @@ public class ByJobAggregator implements Aggregator<Job, Integer>
   }
 
   @Override
-  public Map<Job, Integer> aggregate()
+  public Map<Job, Integer> apply()
   {
     Map<Job, Integer> totals = LazyMap.decorate(new HashMap(), new Factory()
     {

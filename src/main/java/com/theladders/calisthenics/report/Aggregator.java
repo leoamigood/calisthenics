@@ -9,6 +9,6 @@ import java.util.Map;
  */
 public interface Aggregator<K, V>
 {
-  public Map<K, V> aggregate();
+  public Map<K, V> apply();
   public Iterable<Reportable> report();
 }
