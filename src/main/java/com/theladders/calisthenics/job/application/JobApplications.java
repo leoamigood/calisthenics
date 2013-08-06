@@ -14,58 +14,59 @@ import java.util.Set;
  */
 public class JobApplications implements Iterable<JobApplication>
 {
-    private Set<JobApplication> jobApplications = new LinkedHashSet<>();
+  private Set<JobApplication> jobApplications = new LinkedHashSet<>();
 
-    public JobApplications(final JobApplication ...applications)
-    {
-        jobApplications.addAll(Arrays.asList(applications));
-    }
+  public JobApplications(final JobApplication... applications)
+  {
+    jobApplications.addAll(Arrays.asList(applications));
+  }
 
-    public JobApplications(final Set<JobApplication> applications)
-    {
-        jobApplications.addAll(applications);
-    }
+  public JobApplications(final Set<JobApplication> applications)
+  {
+    jobApplications.addAll(applications);
+  }
 
-    public boolean add(final JobApplication application)
-    {
-        return jobApplications.add(application);
-    }
+  public boolean add(final JobApplication application)
+  {
+    return jobApplications.add(application);
+  }
 
-    public boolean addAll(final JobApplications applications)
-    {
-        if (applications != null) {
-            return jobApplications.addAll(applications.jobApplications);
-        }
-        return false;
+  public boolean addAll(final JobApplications applications)
+  {
+    if (applications != null) {
+      return jobApplications.addAll(applications.jobApplications);
     }
+    return false;
+  }
 
-    public Jobs jobs()
-    {
-        Jobs jobs = new Jobs();
-        for (JobApplication application: jobApplications) {
-            jobs.add(application.job());
-        }
-        return jobs;
+  public Jobs jobs()
+  {
+    Jobs jobs = new Jobs();
+    for (JobApplication application : jobApplications) {
+      jobs.add(application.job());
     }
+    return jobs;
+  }
 
-    public int size()
-    {
-        return jobApplications.size();
-    }
+  public int size()
+  {
+    return jobApplications.size();
+  }
 
-    @Override
-    public Iterator<JobApplication> iterator()
-    {
-        return jobApplications.iterator();
-    }
+  @Override
+  public Iterator<JobApplication> iterator()
+  {
+    return jobApplications.iterator();
+  }
 
-    public boolean isEmpty()
-    {
-        return jobApplications.isEmpty();
-    }
+  public boolean isEmpty()
+  {
+    return jobApplications.isEmpty();
+  }
 
-    public boolean contains(final JobApplication application)
-    {
-        return jobApplications.contains(application);
-    }
+  public boolean contains(final JobApplication application)
+  {
+    return jobApplications.contains(application);
+  }
+
 }

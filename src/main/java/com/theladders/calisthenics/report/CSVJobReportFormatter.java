@@ -1,10 +1,8 @@
 package com.theladders.calisthenics.report;
 
-import com.theladders.calisthenics.job.application.JobApplication;
-import com.theladders.calisthenics.job.application.JobApplications;
-
 import java.io.IOException;
 import java.io.Writer;
+import java.util.Iterator;
 
 /**
  * User: Leo Amigood <lamigud@theladders.com>
@@ -13,25 +11,33 @@ import java.io.Writer;
  */
 public class CSVJobReportFormatter extends ReportFormatter
 {
-    private static final String FIELD_SEPARATOR = ",";
+  private static final String FIELD_SEPARATOR = ",";
 
-    public CSVJobReportFormatter(Writer writer)
-    {
-        super(writer);
+  public CSVJobReportFormatter(Writer writer)
+  {
+    super(writer);
+  }
+
+  @Override
+  public void write(Iterable<Reportable> report) throws IOException
+  {
+    for (Reportable reportable: report) {
+      writeLine(reportable);
     }
+  }
 
-    @Override
-    public void write(JobApplications applications) throws IOException
+  private void writeLine(Reportable data) throws IOException
+  {
+    Iterator<String> iterator = data.chunks();
+    while (iterator.hasNext())
     {
-        StringBuilder sb = new StringBuilder();
-        for (JobApplication application: applications)
-        {
-            sb.append(application.date().toString()).append(FIELD_SEPARATOR).
-                    append(application.applicant().toString()).append(FIELD_SEPARATOR).
-                    append(application.job().toString()).
-                    append(System.lineSeparator());
-
-            writer.write(sb.toString());
-        }
+      writer.write(iterator.next());
+      if (iterator.hasNext()) {
+        writer.write(FIELD_SEPARATOR);
+      }
     }
+    writer.write(System.lineSeparator());
+  }
 }
+
+

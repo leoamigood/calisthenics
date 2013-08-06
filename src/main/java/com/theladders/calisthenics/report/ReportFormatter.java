@@ -1,7 +1,5 @@
 package com.theladders.calisthenics.report;
 
-import com.theladders.calisthenics.job.application.JobApplications;
-
 import java.io.IOException;
 import java.io.Writer;
 
@@ -19,5 +17,5 @@ public abstract class ReportFormatter
         this.writer = writer;
     }
 
-    public abstract void write(final JobApplications applications) throws IOException;
+    public abstract void write(final Iterable<Reportable> data) throws IOException;
 }
