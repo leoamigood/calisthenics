@@ -26,6 +26,7 @@ public class ByRecruiterAggregatorTest extends ReportTest
   {
     Map<Recruiter, Integer> map = aggregator.apply();
     assertEquals(4, map.get(recruiter).intValue());
-    assertEquals(0, map.get(new Recruiter("Sam Recruiter")).intValue());
+    assertEquals(2, map.get(andyRecruiter).intValue());
+    assertEquals(2, map.size());
   }
 }

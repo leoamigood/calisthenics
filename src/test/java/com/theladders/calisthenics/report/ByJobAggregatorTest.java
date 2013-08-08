@@ -27,6 +27,7 @@ public class ByJobAggregatorTest extends ReportTest
     Map<Job, Integer> map = aggregator.apply();
     assertEquals(1, map.get(ats).intValue());
     assertEquals(3, map.get(jReq).intValue());
-    assertEquals(2, map.size());
+    assertEquals(2, map.get(atsJobFromChris).intValue());
+    assertEquals(3, map.size());
   }
 }
