@@ -12,7 +12,5 @@ import com.theladders.confident.Maybe;
  */
 public interface JobApplicationPolicy
 {
-    public Maybe<Restrictions> restrictBy(final JobSeeker jobSeeker,
-                                   final Resume resume,
-                                   final Job job);
+    public Maybe<Restrictions> restrictBy(JobSeeker jobSeeker, Resume resume, Job job);
 }

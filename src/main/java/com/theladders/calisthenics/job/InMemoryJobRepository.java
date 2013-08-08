@@ -14,29 +14,29 @@ import java.util.Map;
  */
 public class InMemoryJobRepository implements JobRepository
 {
-    private Map<Recruiter, Jobs> data = lazy(new HashMap<Recruiter, Jobs>());
+  private Map<Recruiter, Jobs> data = lazy(new HashMap<Recruiter, Jobs>());
 
-    private Map<Recruiter, Jobs> lazy(final HashMap<Recruiter, Jobs> map)
+  private Map<Recruiter, Jobs> lazy(HashMap<Recruiter, Jobs> map)
+  {
+    return LazyMap.decorate(map, new Factory()
     {
-        return LazyMap.decorate(map, new Factory()
-        {
-            @Override
-            public Object create()
-            {
-                return new Jobs();
-            }
-        });
-    }
+      @Override
+      public Object create()
+      {
+        return new Jobs();
+      }
+    });
+  }
 
-    @Override
-    public boolean save(Recruiter recruiter, Job job)
-    {
-        return data.get(recruiter).add(job);
-    }
+  @Override
+  public boolean save(Recruiter recruiter, Job job)
+  {
+    return data.get(recruiter).add(job);
+  }
 
-    @Override
-    public Jobs find(Recruiter recruiter)
-    {
-        return data.get(recruiter);
-    }
+  @Override
+  public Jobs find(Recruiter recruiter)
+  {
+    return data.get(recruiter);
+  }
 }

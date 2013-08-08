@@ -9,7 +9,7 @@ import com.theladders.calisthenics.resume.Resume;
  */
 public class IncompleteResumeRestriction extends Restriction
 {
-    public IncompleteResumeRestriction(final Resume resume)
-    {
-    }
+  public IncompleteResumeRestriction(Resume resume)
+  {
+  }
 }

@@ -9,16 +9,16 @@ import com.theladders.confident.Maybe;
  * Date: 7/15/13
  * Time: 5:56 PM
  */
-public class ATS extends Job {
+public class ATS extends Job
+{
+  public ATS(String title, Recruiter recruiter)
+  {
+    super(title, recruiter);
+  }
 
-    public ATS(String title, Recruiter recruiter)
-    {
-        super(title, recruiter);
-    }
-
-    @Override
-    public boolean canApplyWith(Maybe<Resume> resume)
-    {
-        return true;
-    }
+  @Override
+  public boolean canApplyWith(Maybe<Resume> resume)
+  {
+    return true;
+  }
 }

@@ -21,7 +21,7 @@ public class InMemoryJobApplicationRepository implements JobApplicationRepositor
 {
   private Map<JobSeeker, JobApplications> data = lazy(new HashMap<JobSeeker, JobApplications>());
 
-  private Map<JobSeeker, JobApplications> lazy(final HashMap<JobSeeker, JobApplications> map)
+  private Map<JobSeeker, JobApplications> lazy(HashMap<JobSeeker, JobApplications> map)
   {
     return LazyMap.decorate(map, new Factory()
     {

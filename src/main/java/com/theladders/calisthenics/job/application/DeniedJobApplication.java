@@ -14,17 +14,25 @@ import java.util.Date;
  */
 public class DeniedJobApplication extends JobApplication
 {
-    public DeniedJobApplication(final JobSeeker jobSeeker,
-                                final Resume resume,
-                                final Job job,
-                                final Restrictions restrictions)
-    {
-        super(jobSeeker, new JobApplicationDetails(job, new Date()));
-    }
+  private Restrictions restrictions;
 
-    @Override
-    public JobApplicationState status()
-    {
-        return JobApplicationState.DENIED;
-    }
+  public DeniedJobApplication(JobSeeker jobSeeker,
+                              Resume resume,
+                              Job job,
+                              Restrictions restrictions)
+  {
+    super(jobSeeker, new JobApplicationDetails(job, new Date()));
+    this.restrictions = restrictions;
+  }
+
+  @Override
+  public JobApplicationState status()
+  {
+    return JobApplicationState.DENIED;
+  }
+
+  public Restrictions restrictions()
+  {
+    return restrictions;
+  }
 }

@@ -12,9 +12,8 @@ import java.util.Date;
  */
 public interface JobApplicationRepository
 {
-    public JobApplications findByJob(final Job job);
-    public JobApplications findByJobSeeker(final JobSeeker jobSeeker);
-    public JobApplications findByDate(final Date date);
-
-    public void save(final JobApplication application);
+  public JobApplications findByJob(Job job);
+  public JobApplications findByJobSeeker(JobSeeker jobSeeker);
+  public JobApplications findByDate(Date date);
+  public void save(JobApplication application);
 }

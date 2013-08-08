@@ -4,7 +4,7 @@ import com.theladders.calisthenics.actor.JobSeeker;
 import com.theladders.calisthenics.job.Job;
 import com.theladders.calisthenics.job.Jobs;
 import com.theladders.calisthenics.job.application.*;
-import com.theladders.calisthenics.job.application.filter.AppliedJobApplicationFilter;
+import com.theladders.calisthenics.job.application.filter.AcceptedJobApplicationFilter;
 import com.theladders.calisthenics.job.application.filter.JobApplicationFilters;
 import com.theladders.calisthenics.job.application.filter.JobFilter;
 import com.theladders.calisthenics.job.application.filter.SavedJobApplicationFilter;
@@ -67,7 +67,7 @@ public class JobSeekerService
 
   public Jobs jobsAppliedBy(JobSeeker jobSeeker)
   {
-    JobApplicationFilters filters = new JobApplicationFilters(new AppliedJobApplicationFilter());
+    JobApplicationFilters filters = new JobApplicationFilters(new AcceptedJobApplicationFilter());
     return filters.apply(appRepository.findByJobSeeker(jobSeeker)).jobs();
   }
 

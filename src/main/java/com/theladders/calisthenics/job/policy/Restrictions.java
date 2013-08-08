@@ -10,15 +10,15 @@ import java.util.Set;
  */
 public class Restrictions
 {
-    private Set<Restriction> restrictions = new HashSet<>();
+  private Set<Restriction> restrictions = new HashSet<>();
 
-    public boolean isNone()
-    {
-        return restrictions.isEmpty();
-    }
+  public boolean isNone()
+  {
+    return restrictions.isEmpty();
+  }
 
-    public void add(final Restriction restriction)
-    {
-        restrictions.add(restriction);
-    }
+  public void add(final Restriction restriction)
+  {
+    restrictions.add(restriction);
+  }
 }

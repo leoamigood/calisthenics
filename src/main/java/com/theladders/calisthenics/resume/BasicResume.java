@@ -7,9 +7,9 @@ package com.theladders.calisthenics.resume;
  */
 public class BasicResume extends Resume
 {
-    @Override
-    public boolean isCompleted()
-    {
-        return true;
-    }
+  @Override
+  public boolean isCompleted()
+  {
+    return true;
+  }
 }

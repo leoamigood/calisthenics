@@ -9,6 +9,6 @@ import com.theladders.calisthenics.actor.Recruiter;
  */
 public interface JobRepository
 {
-    public boolean save(final Recruiter recruiter, final Job job);
-    public Jobs find(final Recruiter recruiter);
+  public boolean save(Recruiter recruiter, Job job);
+  public Jobs find(Recruiter recruiter);
 }

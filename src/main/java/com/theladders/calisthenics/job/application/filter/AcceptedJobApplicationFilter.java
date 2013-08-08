@@ -8,11 +8,11 @@ import com.theladders.calisthenics.job.application.JobApplication;
  * Date: 7/31/13
  * Time: 3:53 PM
  */
-public class AppliedJobApplicationFilter implements JobApplicationMatcher
+public class AcceptedJobApplicationFilter implements JobApplicationMatcher
 {
-    @Override
-    public boolean match(final JobApplication application)
-    {
-        return application.status().isAccepted();
-    }
+  @Override
+  public boolean match(final JobApplication application)
+  {
+    return application.status().isAccepted();
+  }
 }

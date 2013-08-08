@@ -10,20 +10,20 @@ import java.util.Set;
  */
 public class JobSeekers
 {
-    private Set<JobSeeker> seekers = new LinkedHashSet<>();
+  private Set<JobSeeker> seekers = new LinkedHashSet<>();
 
-    public boolean add(final JobSeeker seeker)
-    {
-        return seekers.add(seeker);
-    }
+  public boolean add(JobSeeker seeker)
+  {
+    return seekers.add(seeker);
+  }
 
-    public int size()
-    {
-        return seekers.size();
-    }
+  public int size()
+  {
+    return seekers.size();
+  }
 
-    public boolean contains(final JobSeeker seeker)
-    {
-        return seekers.contains(seeker);
-    }
+  public boolean contains(JobSeeker seeker)
+  {
+    return seekers.contains(seeker);
+  }
 }

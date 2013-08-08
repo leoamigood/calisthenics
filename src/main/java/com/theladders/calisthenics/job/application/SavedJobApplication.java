@@ -9,14 +9,14 @@ import com.theladders.calisthenics.actor.JobSeeker;
  */
 public class SavedJobApplication extends JobApplication
 {
-    public SavedJobApplication(final JobSeeker seeker, final JobApplicationDetails info)
-    {
-        super(seeker, info);
-    }
+  public SavedJobApplication(JobSeeker seeker, JobApplicationDetails info)
+  {
+    super(seeker, info);
+  }
 
-    @Override
-    public JobApplicationState status()
-    {
-        return JobApplicationState.ON_WATCH_LIST;
-    }
+  @Override
+  public JobApplicationState status()
+  {
+    return JobApplicationState.ON_WATCH_LIST;
+  }
 }

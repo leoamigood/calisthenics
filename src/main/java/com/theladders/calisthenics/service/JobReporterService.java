@@ -22,7 +22,7 @@ public class JobReporterService
 {
   private JobSeekerService jobSeekerService;
 
-  public JobReporterService(final JobSeekerService service)
+  public JobReporterService(JobSeekerService service)
   {
     this.jobSeekerService = service;
   }

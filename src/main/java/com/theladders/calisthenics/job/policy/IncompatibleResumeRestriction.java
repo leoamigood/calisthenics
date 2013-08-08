@@ -10,7 +10,7 @@ import com.theladders.calisthenics.resume.Resume;
  */
 public class IncompatibleResumeRestriction extends Restriction
 {
-    public IncompatibleResumeRestriction(final Job job, final Resume resume)
-    {
-    }
+  public IncompatibleResumeRestriction(Job job, Resume resume)
+  {
+  }
 }

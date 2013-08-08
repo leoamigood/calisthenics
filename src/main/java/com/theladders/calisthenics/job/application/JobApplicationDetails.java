@@ -11,22 +11,23 @@ import java.util.Date;
  */
 public class JobApplicationDetails
 {
-    private Job job;
-    private Date appliedOn;
+  private Job job;
+  private Date appliedOn;
 
-    public JobApplicationDetails(final Job job, final Date appliedOn)
-    {
-        this.job = job;
-        this.appliedOn = appliedOn;
-    }
+  public JobApplicationDetails(Job job, Date appliedOn)
+  {
+    this.job = job;
+    this.appliedOn = appliedOn;
+  }
 
-    public Job job() {
-        return job;
-    }
+  public Job job()
+  {
+    return job;
+  }
 
-    public Date date()
-    {
-        return appliedOn;
-    }
+  public Date date()
+  {
+    return appliedOn;
+  }
 
 }

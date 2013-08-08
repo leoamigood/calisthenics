@@ -30,14 +30,13 @@ public class JobSeeker
     }
   }
 
-  public JobSeeker(final String name)
+  public JobSeeker(String name)
   {
     this.id = IdentityUtil.getId(JobSeeker.Id.class);
     this.name = name;
   }
 
-  public JobSeeker(final String name,
-                   final Resume resume)
+  public JobSeeker(String name, Resume resume)
   {
     this(name);
     addResume(resume);
@@ -50,7 +49,7 @@ public class JobSeeker
     return applier.apply(this, resume, job);
   }
 
-  public boolean addResume(final Resume resume)
+  public boolean addResume(Resume resume)
   {
     return resumes.add(resume);
   }

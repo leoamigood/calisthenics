@@ -11,33 +11,33 @@ import java.util.Set;
  */
 public class Jobs implements Iterable<Job>
 {
-    private Set<Job> jobs = new HashSet<>();
+  private Set<Job> jobs = new HashSet<>();
 
-    public Jobs(final Job ...jobs)
-    {
-        for (Job job: jobs) {
-            this.jobs.add(job);
-        }
+  public Jobs(final Job ...jobs)
+  {
+    for (Job job: jobs) {
+      this.jobs.add(job);
     }
+  }
 
-    @Override
-    public Iterator<Job> iterator()
-    {
-        return jobs.iterator();
-    }
+  @Override
+  public Iterator<Job> iterator()
+  {
+    return jobs.iterator();
+  }
 
-    public int size()
-    {
-        return jobs.size();
-    }
+  public int size()
+  {
+    return jobs.size();
+  }
 
-    public boolean add(final Job job)
-    {
-        return jobs.add(job);
-    }
+  public boolean add(Job job)
+  {
+    return jobs.add(job);
+  }
 
-    public boolean contains(final Job job)
-    {
-        return jobs.contains(job);
-    }
+  public boolean contains(Job job)
+  {
+    return jobs.contains(job);
+  }
 }

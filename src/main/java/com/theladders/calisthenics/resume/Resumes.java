@@ -8,15 +8,17 @@ import java.util.Set;
  * Date: 7/16/13
  * Time: 12:53 PM
  */
-public class Resumes {
+public class Resumes
+{
+  private Set<Resume> resumes = new LinkedHashSet<>();
 
-    private Set<Resume> resumes = new LinkedHashSet<>();
+  public boolean add(Resume resume)
+  {
+    return resumes.add(resume);
+  }
 
-    public boolean add(Resume resume) {
-        return resumes.add(resume);
-    }
-
-    public boolean contains(Resume resume) {
-        return resumes.contains(resume);
-    }
+  public boolean contains(Resume resume)
+  {
+    return resumes.contains(resume);
+  }
 }

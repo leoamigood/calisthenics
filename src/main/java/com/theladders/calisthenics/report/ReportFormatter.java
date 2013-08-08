@@ -10,12 +10,12 @@ import java.io.Writer;
  */
 public abstract class ReportFormatter
 {
-    protected Writer writer;
+  protected Writer writer;
 
-    public ReportFormatter(Writer writer)
-    {
-        this.writer = writer;
-    }
+  public ReportFormatter(Writer writer)
+  {
+    this.writer = writer;
+  }
 
-    public abstract void write(final Iterable<Reportable> data) throws IOException;
+  public abstract void write(Iterable<Reportable> data) throws IOException;
 }

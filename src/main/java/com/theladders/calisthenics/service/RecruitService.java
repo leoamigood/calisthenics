@@ -22,15 +22,15 @@ public class RecruitService
   private JobRepository jobRepository;
   private JobApplicationRepository appRepository;
 
-  public RecruitService(final JobRepository repository,
-                        final JobApplicationRepository appRepository)
+  public RecruitService(JobRepository repository,
+                        JobApplicationRepository appRepository)
   {
     this.jobRepository = repository;
     this.appRepository = appRepository;
   }
 
-  public Jobs postJobs(final Recruiter recruiter,
-                       final Jobs jobs)
+  public Jobs postJobs(Recruiter recruiter,
+                       Jobs jobs)
   {
     for (Job job : jobs) {
       jobRepository.save(recruiter, job);
@@ -39,12 +39,12 @@ public class RecruitService
     return jobs;
   }
 
-  public Jobs jobsPostedBy(final Recruiter recruiter)
+  public Jobs jobsPostedBy(Recruiter recruiter)
   {
     return jobRepository.find(recruiter);
   }
 
-  public JobApplications jobsApplicationsBy(final Recruiter recruiter)
+  public JobApplications jobsApplicationsBy(Recruiter recruiter)
   {
     Jobs jobs = jobRepository.find(recruiter);
 
@@ -57,20 +57,19 @@ public class RecruitService
     return combined;
   }
 
-  public JobSeekers applicantsBy(final Recruiter recruiter)
+  public JobSeekers applicantsBy(Recruiter recruiter)
   {
     return applicantsBy(recruiter, Maybe.<JobApplicationFilters>nothing());
   }
 
-  public JobSeekers applicantsBy(final Recruiter recruiter,
-                                 final Maybe<JobApplicationFilters> filters)
+  public JobSeekers applicantsBy(Recruiter recruiter,
+                                 Maybe<JobApplicationFilters> filters)
   {
     JobApplications applications = jobsApplicationsBy(recruiter);
-
     return filters.isSomething() ? jobSeekersBy(filters.get().apply(applications)) : jobSeekersBy(applications);
   }
 
-  private JobSeekers jobSeekersBy(final JobApplications applications)
+  private JobSeekers jobSeekersBy(JobApplications applications)
   {
     JobSeekers seekers = new JobSeekers();
     for (JobApplication application : applications) {

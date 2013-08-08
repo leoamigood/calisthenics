@@ -13,9 +13,9 @@ import java.util.Date;
  */
 public class CompletedJobApplication extends JobApplication
 {
-    public CompletedJobApplication(final JobSeeker jobSeeker,
-                                   final Resume resume,
-                                   final Job job)
+    public CompletedJobApplication(JobSeeker jobSeeker,
+                                   Resume resume,
+                                   Job job)
     {
         super(jobSeeker, new JobApplicationDetails(job, new Date()));
     }

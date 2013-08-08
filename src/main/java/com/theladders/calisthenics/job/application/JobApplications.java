@@ -16,22 +16,22 @@ public class JobApplications implements Iterable<JobApplication>
 {
   private Set<JobApplication> jobApplications = new LinkedHashSet<>();
 
-  public JobApplications(final JobApplication... applications)
+  public JobApplications(JobApplication ...applications)
   {
     jobApplications.addAll(Arrays.asList(applications));
   }
 
-  public JobApplications(final Set<JobApplication> applications)
+  public JobApplications(Set<JobApplication> applications)
   {
     jobApplications.addAll(applications);
   }
 
-  public boolean add(final JobApplication application)
+  public boolean add(JobApplication application)
   {
     return jobApplications.add(application);
   }
 
-  public boolean addAll(final JobApplications applications)
+  public boolean addAll(JobApplications applications)
   {
     if (applications != null) {
       return jobApplications.addAll(applications.jobApplications);
@@ -42,7 +42,7 @@ public class JobApplications implements Iterable<JobApplication>
   public Jobs jobs()
   {
     Jobs jobs = new Jobs();
-    for (JobApplication application : jobApplications) {
+    for (JobApplication application: jobApplications) {
       jobs.add(application.job());
     }
     return jobs;
@@ -64,7 +64,7 @@ public class JobApplications implements Iterable<JobApplication>
     return jobApplications.isEmpty();
   }
 
-  public boolean contains(final JobApplication application)
+  public boolean contains(JobApplication application)
   {
     return jobApplications.contains(application);
   }
