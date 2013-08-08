@@ -45,7 +45,7 @@ public abstract class Job
     return title;
   }
 
-  public Recruiter recruiter()
+  public Recruiter postedBy()
   {
     return recruiter;
   }

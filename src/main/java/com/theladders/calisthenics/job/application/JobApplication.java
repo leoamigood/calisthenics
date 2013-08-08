@@ -53,7 +53,7 @@ public class JobApplication implements Reportable
         add(date().toString());
         add(jobSeeker.toString());
         add(job().toString());
-        add(job().recruiter().toString());
+        add(job().postedBy().toString());
       }
     }.iterator();
   }

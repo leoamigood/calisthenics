@@ -34,7 +34,7 @@ public class ByRecruiterAggregator extends JobApplicationAggregator<Recruiter, I
     });
 
     for (JobApplication application: applications){
-      totals.put(application.job().recruiter(), totals.get(application.job().recruiter()) + 1);
+      totals.put(application.job().postedBy(), totals.get(application.job().postedBy()) + 1);
     }
 
     return totals;

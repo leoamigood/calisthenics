@@ -285,7 +285,7 @@ Here are the interactions:
 * Recruiters should be able to see jobseekers who have applied to their jobs by both job and day. If possible, we would like to be able to combine the 2 and see jobseekers who have applied to a given job on a given day.
 * TheLadders should be able to get a report of what jobseekers have applied to jobs on any given day.
 * TheLadders should be able to get the job application report in either csv or html format.
-* TheLadders should be able to ascertain jobseeker, job, recruiter amd job application date from the job applicaiton report.
+* TheLadders should be able to ascertain jobseeker, job, recruiter and job application date from the job applicaiton report.
 * TheLadders should be able to see aggregate job application numbers by job and recruiter.
 * Jobseekers, when displayed, should be displayed by their name.
 * Recruiters, when displayed, should be displayed by their name.
