@@ -4,7 +4,7 @@ import com.theladders.calisthenics.CalisthenicsTest;
 import com.theladders.calisthenics.job.application.JobApplication;
 import com.theladders.calisthenics.job.application.JobApplicationDetails;
 import com.theladders.calisthenics.job.application.JobApplications;
-import com.theladders.calisthenics.report.ByJobAggregator;
+import com.theladders.calisthenics.report.ByJobApplicationAggregator;
 import com.theladders.calisthenics.report.CSVJobReportFormatter;
 import org.hamcrest.Matcher;
 import org.hamcrest.core.AllOf;
@@ -51,7 +51,7 @@ public class JobReporterServiceTest extends CalisthenicsTest
     CSVJobReportFormatter formatter = new CSVJobReportFormatter(writer);
 
     JobApplications applications = new JobApplications(new JobApplication(jobSeeker, new JobApplicationDetails(ats, new Date())));
-    jobReporterService.reportJobApplicationsWith(formatter, new ByJobAggregator(applications));
+    jobReporterService.reportJobApplicationsWith(formatter, new ByJobApplicationAggregator(applications));
 
     //"Fri Aug 02 09:51:56 EDT 2013,285506194 ATS job title,3",
     Matcher jobMatches = StringContains.containsString("ATS job title");
